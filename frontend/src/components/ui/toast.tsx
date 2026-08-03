@@ -111,7 +111,7 @@ function ToastAction({
 function ToastClose({
   className,
   children,
-  render = <Button variant="ghost" size="icon-sm" />,
+  render = <Button variant="ghost" size="icon" className="h-6 w-6" />,
   ...props
 }: ToastPrimitive.Close.Props) {
   return (
