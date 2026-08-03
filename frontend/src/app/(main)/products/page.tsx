@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Filter, SlidersHorizontal, ChevronDown } from 'lucide-react';
 import { ProductCard } from '@/components/product/ProductCard';
@@ -31,7 +31,7 @@ const sortOptions = [
   { label: 'Biggest Discount', value: 'discount' },
 ];
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams();
   const { ref, inView } = useInView();
   
@@ -244,5 +244,13 @@ export default function ProductsPage() {
         </div>
       </Drawer>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center p-8"><LoadingSpinner /></div>}>
+      <ProductsContent />
+    </Suspense>
   );
 }
