@@ -19,7 +19,7 @@ const server = createServer(app);
 const PORT = process.env.PORT || 5000;
 
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3001', credentials: true }));
+app.use(cors({ origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'https://drinkit-project.vercel.app', 'http://localhost:3001'], credentials: true }));
 app.use(compression());
 app.use(morgan('dev'));
 app.use(express.json({ limit: '50mb' }));

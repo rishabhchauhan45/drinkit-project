@@ -5,7 +5,7 @@ let io: SocketServer;
 
 export const initSocket = (server: Server) => {
   io = new SocketServer(server, {
-    cors: { origin: process.env.FRONTEND_URL || 'http://localhost:3001', credentials: true },
+    cors: { origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'https://drinkit-project.vercel.app', 'http://localhost:3001'], credentials: true },
     transports: ['websocket', 'polling']
   });
 
