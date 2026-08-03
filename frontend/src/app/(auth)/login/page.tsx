@@ -37,7 +37,7 @@ function LoginForm() {
       const returnUrl = searchParams.get('returnUrl') || '/';
       router.push(returnUrl);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
+      setError(err.response?.data?.error || err.response?.data?.message || 'Failed to sign in. Please check your credentials.');
     }
   };
 
