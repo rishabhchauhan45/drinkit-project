@@ -8,7 +8,13 @@ exports.productController = {
         try {
             const { category, search, minPrice, maxPrice, brand, page = 1, limit = 10 } = req.query;
             const cacheKey = `products:${JSON.stringify(req.query)}`;
-            const cached = await database_1.redis.get(cacheKey);
+            let cached = null;
+            try {
+                cached = await database_1.redis.get(cacheKey);
+            }
+            catch (redisErr) {
+                console.warn('Redis get error:', redisErr);
+            }
             if (cached)
                 return res.json({ success: true, data: JSON.parse(cached), cached: true });
             const filter = { isActive: true };
@@ -26,11 +32,17 @@ exports.productController = {
             if (search)
                 filter.$text = { $search: search };
             const products = await Product_1.Product.find(filter).skip((Number(page) - 1) * Number(limit)).limit(Number(limit)).populate('pairings');
-            await database_1.redis.set(cacheKey, JSON.stringify(products), 'EX', 300);
+            try {
+                await database_1.redis.set(cacheKey, JSON.stringify(products), 'EX', 300);
+            }
+            catch (redisErr) {
+                console.warn('Redis set error:', redisErr);
+            }
             res.json({ success: true, data: products, page: Number(page), limit: Number(limit), total: await Product_1.Product.countDocuments(filter) });
         }
         catch (error) {
-            res.status(400).json({ success: false, error: error.message });
+            console.error('getAllProducts Error:', error);
+            res.status(400).json({ success: false, error: error.message, stack: error.stack });
         }
     },
     async getProductById(req, res) {
@@ -47,9 +59,14 @@ exports.productController = {
     async createProduct(req, res) {
         try {
             const product = await Product_1.Product.create(req.body);
-            const keys = await database_1.redis.keys('products:*');
-            if (keys.length > 0)
-                await database_1.redis.del(...keys);
+            try {
+                const keys = await database_1.redis.keys('products:*');
+                if (keys.length > 0)
+                    await database_1.redis.del(...keys);
+            }
+            catch (redisErr) {
+                console.warn('Redis cache clear error:', redisErr);
+            }
             res.status(201).json({ success: true, data: product });
         }
         catch (error) {
@@ -59,9 +76,14 @@ exports.productController = {
     async updateProduct(req, res) {
         try {
             const product = await Product_1.Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
-            const keys = await database_1.redis.keys('products:*');
-            if (keys.length > 0)
-                await database_1.redis.del(...keys);
+            try {
+                const keys = await database_1.redis.keys('products:*');
+                if (keys.length > 0)
+                    await database_1.redis.del(...keys);
+            }
+            catch (redisErr) {
+                console.warn('Redis cache clear error:', redisErr);
+            }
             res.json({ success: true, data: product });
         }
         catch (error) {
@@ -71,9 +93,14 @@ exports.productController = {
     async deleteProduct(req, res) {
         try {
             await Product_1.Product.findByIdAndDelete(req.params.id);
-            const keys = await database_1.redis.keys('products:*');
-            if (keys.length > 0)
-                await database_1.redis.del(...keys);
+            try {
+                const keys = await database_1.redis.keys('products:*');
+                if (keys.length > 0)
+                    await database_1.redis.del(...keys);
+            }
+            catch (redisErr) {
+                console.warn('Redis cache clear error:', redisErr);
+            }
             res.json({ success: true, message: 'Product deleted' });
         }
         catch (error) {

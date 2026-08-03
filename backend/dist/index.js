@@ -22,7 +22,7 @@ const app = (0, express_1.default)();
 const server = (0, http_1.createServer)(app);
 const PORT = process.env.PORT || 5000;
 app.use((0, helmet_1.default)());
-app.use((0, cors_1.default)({ origin: process.env.FRONTEND_URL || 'http://localhost:3001', credentials: true }));
+app.use((0, cors_1.default)({ origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'https://drinkit-project.vercel.app', 'http://localhost:3001'], credentials: true }));
 app.use((0, compression_1.default)());
 app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.json({ limit: '50mb' }));

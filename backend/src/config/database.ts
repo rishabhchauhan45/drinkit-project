@@ -14,8 +14,12 @@ export const connectDB = async () => {
     await mongoose.connect(process.env.MONGODB_URI!);
     console.log('✅ MongoDB connected');
 
-    await redis.ping();
-    console.log('✅ Redis connected');
+    try {
+      await redis.ping();
+      console.log('✅ Redis connected');
+    } catch (redisError) {
+      console.warn('⚠️ Redis connection failed, cache will be unavailable:', redisError);
+    }
   } catch (error) {
     console.error('❌ Database connection error:', error);
     process.exit(1);

@@ -5,7 +5,7 @@ const socket_io_1 = require("socket.io");
 let io;
 const initSocket = (server) => {
     io = new socket_io_1.Server(server, {
-        cors: { origin: process.env.FRONTEND_URL || 'http://localhost:3001', credentials: true },
+        cors: { origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'https://drinkit-project.vercel.app', 'http://localhost:3001'], credentials: true },
         transports: ['websocket', 'polling']
     });
     io.on('connection', (socket) => {
