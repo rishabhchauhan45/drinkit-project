@@ -21,7 +21,10 @@ export const authController = {
       });
       
       res.status(201).json({ success: true, data: { token, user: { id: user.id, email, name, role: user.role } } });
-    } catch (error: any) { res.status(400).json({ success: false, error: error.message }); }
+    } catch (error: any) { 
+      console.error('Register Error:', error);
+      res.status(400).json({ success: false, error: error.message, stack: error.stack }); 
+    }
   },
   async login(req: any, res: any) {
     try {
