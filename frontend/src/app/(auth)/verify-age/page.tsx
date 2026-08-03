@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useDispatch, useSelector } from 'react-redux';
 import { setAgeVerified } from '@/store/slices/authSlice';
 import { RootState } from '@/store/store';
-import axios from 'axios';
+import api from '@/lib/api';
 import { Camera, Upload, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export default function AgeVerificationPage() {
@@ -35,10 +35,9 @@ export default function AgeVerificationPage() {
       formData.append('idImage', idFile);
       formData.append('selfieImage', selfieFile);
 
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/ai/verify-age`, formData, {
+      const response = await api.post('/ai/verify-age', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'multipart/form-data'
         }
       });
 
