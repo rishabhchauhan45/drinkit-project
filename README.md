@@ -1,4 +1,4 @@
-fu# 🍸 DrinkIt
+# 🍸 DrinkIt
 
 DrinkIt is a modern, full-stack alcohol and snacks delivery platform, designed with an architecture similar to Zomato/Swiggy but specifically tailored for alcohol delivery with built-in compliance and age verification systems
 
@@ -6,9 +6,9 @@ DrinkIt is a modern, full-stack alcohol and snacks delivery platform, designed w
 
 **Frontend:**
 - **Next.js 14** (App Router)
-- **React 18*
+- **React 18**
 - **Tailwind CSS** (Custom dark mode aesthetic)
-- **Radix UI** & **Lucide React** for accessible UI components ..
+- **Radix UI** & **Lucide React** for accessible UI components
 - **Redux Toolkit** & **React Query** for state management
 - **Socket.io-client** for real-time delivery tracking
 
@@ -21,7 +21,7 @@ DrinkIt is a modern, full-stack alcohol and snacks delivery platform, designed w
 - **OpenAI API** for AI-driven age verification (ID & selfie match) and product recommendations
 - **JWT & bcrypt** for authentication
 
-**Infrastructure:*
+**Infrastructure:**
 - **Docker & Docker Compose** for local development services
 - **Kubernetes** manifests prepared for production deployment
 - **Prometheus & Grafana** for monitoring (port 3000)
@@ -61,8 +61,7 @@ Initialize the Prisma PostgreSQL schema:
 
 ```bash
 npx prisma generate
-npx prisma db pushnpm run dev
-
+npx prisma db push
 ```
 
 Start the backend development server:
@@ -79,7 +78,7 @@ Open a new terminal and navigate to the frontend directory:
 ```bash
 cd frontend
 npm install
-``
+```
 
 Ensure your `.env.local` contains the correct API and Socket URLs...
 Start the frontend development server:
@@ -94,5 +93,13 @@ npm run dev
 - **Polyglot Persistence**: Strategic use of SQL (PostgreSQL) for relational constraints and NoSQL (MongoDB) for catalog flexibility.
 - **AI Age Verification**: Upload a government ID and a selfie to instantly verify age compliance using OpenAI Vision.
 - **Real-Time Tracking**: Live order and delivery partner tracking using Socket.io.
-- **State Law Compliance**: Built-in middleware to respect state-specific alcohol delivery timings, minimum ages, and dry days
-- **Premium UI** Designed with a sleek, dark-themed, glassmorphic aesthetic to provide a high-end user experience.
+- **State Law Compliance**: Built-in middleware to respect state-specific alcohol delivery timings, minimum ages, and dry days.
+- **Premium UI**: Designed with a sleek, dark-themed, glassmorphic aesthetic to provide a high-end user experience.
+
+## 🧪 Testing
+
+To run the backend tests:
+```bash
+cd backend
+npm test
+```
