@@ -4,6 +4,9 @@ import { Inventory } from '../models/Inventory';
 import { emitOrderUpdate } from '../config/socket';
 
 export const orderController = {
+  /**
+   * Creates a new order. Handles inventory check, age verification for alcohol, and safe stock deduction.
+   */
   async createOrder(req: any, res: any) {
     let deductedProducts: { id: string, quantity: number }[] = [];
     try {
