@@ -1,6 +1,7 @@
 {
   "name": "drinkit-frontend",
   "version": "1.0.0",
+  "description": "DrinkIt Frontend Application",
   "private": true,
   "scripts": {
     "dev": "next dev",
