@@ -49,6 +49,7 @@ export default function CheckoutPage() {
     if (currentStep > 0) setCurrentStep(curr => curr - 1);
   };
 
+  // Handles order creation and age verification redirection
   const handlePlaceOrder = async () => {
     try {
       const order = await createOrder({
