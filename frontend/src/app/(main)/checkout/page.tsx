@@ -59,9 +59,16 @@ export default function CheckoutPage() {
       setOrderId(order.id);
       setIsSuccess(true);
       clear();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to create order', error);
-      // In a real app, show a toast notification here
+      const status = error.response?.status;
+      const message = error.response?.data?.error || error.message;
+      
+      if (status === 403 && message.includes('Age verification')) {
+        router.push('/verify-age?returnUrl=/checkout');
+      } else {
+        alert(message || 'Failed to place order. Please try again.');
+      }
     }
   };
 
