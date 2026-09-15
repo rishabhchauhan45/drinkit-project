@@ -1,6 +1,6 @@
 import request from 'supertest';
 import app from '../app';
-import { prisma } from '../index';
+import { prisma } from '../config/database';
 import redisClient from '../config/redis';
 import mongoose from 'mongoose';
 
