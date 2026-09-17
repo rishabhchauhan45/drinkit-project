@@ -1,6 +1,6 @@
 # 🍸 DrinkIt
 
-DrinkIt is a modern, full-stack alcohol and snacks delivery platform, designed with an architecture similar to Zomato/Swiggy but specifically tailored for alcohol delivery with built-in compliance and age verification systems
+DrinkIt is a modern, full-stack alcohol and snacks delivery platform, designed with an architecture similar to Zomato/Swiggy but specifically tailored for alcohol delivery with built-in compliance and age verification system
 
 ## 🚀 Tech Stack
 
