@@ -96,7 +96,7 @@ npm run dev
 - **State Law Compliance**: Built-in middleware to respect state-specific alcohol delivery timings, minimum ages, and dry days.
 - **Premium UI**: Designed with a sleek, dark-themed, glassmorphic aesthetic to provide a high-end user experience.
 
-## 🧪 Testing
+## 🧪 Testi
 
 To run the backend tests:
 ```bash
