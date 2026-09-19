@@ -69,6 +69,11 @@ export default function CheckoutPage() {
         return;
       }
 
+      if (!(window as any).Razorpay) {
+        alert('Razorpay SDK failed to load. Please check your internet connection and try again.');
+        return;
+      }
+
       // Razorpay Flow
       const rzpOrderData = await createPaymentOrder(order.id);
       
@@ -146,7 +151,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 lg:py-12 max-w-5xl">
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       <h1 className="text-3xl font-bold mb-8">Checkout</h1>
 
       {/* Stepper */}
