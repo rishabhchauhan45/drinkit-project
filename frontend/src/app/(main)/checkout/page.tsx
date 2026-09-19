@@ -10,6 +10,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { useCreateOrder } from '@/hooks/useOrders';
+import { useCreatePaymentOrder, useVerifyPayment } from '@/hooks/usePayments';
+import Script from 'next/script';
 
 const steps = ['Address', 'Payment', 'Review'];
 
@@ -18,6 +20,8 @@ export default function CheckoutPage() {
   const { isAuthenticated, user } = useAuth();
   const { items, subtotal, tax, deliveryFee, total, savings, isEmpty, clear } = useCart();
   const { mutateAsync: createOrder, isPending } = useCreateOrder();
+  const { mutateAsync: createPaymentOrder } = useCreatePaymentOrder();
+  const { mutateAsync: verifyPayment } = useVerifyPayment();
   
   const [currentStep, setCurrentStep] = useState(0);
   const [address, setAddress] = useState('');
@@ -57,9 +61,58 @@ export default function CheckoutPage() {
         address,
         paymentMethod: paymentMethod.toUpperCase(),
       });
-      setOrderId(order.id);
-      setIsSuccess(true);
-      clear();
+
+      if (paymentMethod === 'cod') {
+        setOrderId(order.id);
+        setIsSuccess(true);
+        clear();
+        return;
+      }
+
+      // Razorpay Flow
+      const rzpOrderData = await createPaymentOrder(order.id);
+      
+      const options = {
+        key: rzpOrderData.keyId,
+        amount: rzpOrderData.amount,
+        currency: rzpOrderData.currency,
+        name: 'DrinkIt',
+        description: 'Order Payment',
+        order_id: rzpOrderData.razorpayOrderId,
+        handler: async function (response: any) {
+          try {
+            await verifyPayment({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              orderId: order.id
+            });
+            setOrderId(order.id);
+            setIsSuccess(true);
+            clear();
+          } catch (verifyError) {
+            console.error('Payment verification failed', verifyError);
+            alert('Payment verification failed. Please contact support.');
+            router.push(`/profile/orders/${order.id}`);
+          }
+        },
+        prefill: {
+          name: user?.name,
+          email: user?.email,
+          contact: user?.phone
+        },
+        theme: {
+          color: '#10b981'
+        }
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on('payment.failed', function (response: any) {
+        console.error('Payment failed', response.error);
+        alert('Payment failed: ' + response.error.description);
+        router.push(`/profile/orders/${order.id}`);
+      });
+      rzp.open();
     } catch (error: any) {
       console.error('Failed to create order', error);
       const status = error.response?.status;
@@ -93,6 +146,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 lg:py-12 max-w-5xl">
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       <h1 className="text-3xl font-bold mb-8">Checkout</h1>
 
       {/* Stepper */}

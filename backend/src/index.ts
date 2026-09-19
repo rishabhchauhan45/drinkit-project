@@ -12,6 +12,8 @@ import authRoutes from './routes/authRoutes';
 import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
 import aiRoutes from './routes/aiRoutes';
+import paymentRoutes from './routes/paymentRoutes';
+import { paymentController } from './controllers/paymentController';
 import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
@@ -22,6 +24,10 @@ app.use(helmet());
 app.use(cors({ origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'https://drinkit-project.vercel.app', 'http://localhost:3001'], credentials: true }));
 app.use(compression());
 app.use(morgan('dev'));
+
+// Webhook must be parsed as raw body for signature verification
+app.post('/api/payments/webhook', express.raw({ type: 'application/json' }), paymentController.webhookHandler);
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser());
@@ -29,6 +35,7 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/payments', paymentRoutes);
 app.use('/api/ai', aiRoutes);
 
 // 404 handler for unknown API routes
