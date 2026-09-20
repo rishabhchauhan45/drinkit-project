@@ -11,6 +11,7 @@ import { initSocket } from './config/socket';
 import authRoutes from './routes/authRoutes';
 import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
+import adminRoutes from './routes/adminRoutes';
 import aiRoutes from './routes/aiRoutes';
 import paymentRoutes from './routes/paymentRoutes';
 import { paymentController } from './controllers/paymentController';
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/payments', paymentRoutes);

@@ -9,14 +9,16 @@ const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const compression_1 = __importDefault(require("compression"));
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const errorHandler_1 = require("./middleware/errorHandler");
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const app = (0, express_1.default)();
 // Security and utility middleware
 app.use((0, helmet_1.default)());
-app.use((0, cors_1.default)({ origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'https://drinkit-project.vercel.app', 'http://localhost:3001'], credentials: true }));
+app.use((0, cors_1.default)({ origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'https://drinkit-project.vercel.app', 'http://localhost:3001', 'http://localhost:3000'], credentials: true }));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use((0, cookie_parser_1.default)());
 app.use((0, compression_1.default)());
 app.use((0, morgan_1.default)('dev'));
 // Rate limiting

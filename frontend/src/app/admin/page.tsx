@@ -1,74 +1,92 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { 
   TrendingUp, 
   Users, 
   Package, 
   ShoppingCart, 
-  ArrowUpRight,
-  ArrowDownRight,
   Clock
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-
-// Mock data for the dashboard
-const stats = [
-  {
-    title: 'Total Revenue',
-    value: '₹12,45,600',
-    change: '+14.5%',
-    trend: 'up',
-    icon: TrendingUp,
-  },
-  {
-    title: 'Active Users',
-    value: '8,432',
-    change: '+5.2%',
-    trend: 'up',
-    icon: Users,
-  },
-  {
-    title: 'Total Orders',
-    value: '1,245',
-    change: '-2.1%',
-    trend: 'down',
-    icon: ShoppingCart,
-  },
-  {
-    title: 'Products in Stock',
-    value: '456',
-    change: '+12',
-    trend: 'up',
-    icon: Package,
-  },
-];
-
-const recentOrders = [
-  { id: 'ORD-7294', customer: 'Rahul Sharma', amount: 5499, status: 'DELIVERED', time: '10 mins ago' },
-  { id: 'ORD-7295', customer: 'Priya Patel', amount: 2150, status: 'OUT_FOR_DELIVERY', time: '25 mins ago' },
-  { id: 'ORD-7296', customer: 'Vikram Singh', amount: 8900, status: 'PREPARING', time: '1 hour ago' },
-  { id: 'ORD-7297', customer: 'Neha Gupta', amount: 1240, status: 'PENDING', time: '2 hours ago' },
-  { id: 'ORD-7298', customer: 'Arjun Kapoor', amount: 15600, status: 'CONFIRMED', time: '3 hours ago' },
-];
+import { adminService, DashboardStats } from '@/services/admin.service';
 
 export default function AdminDashboardPage() {
-  
+  const [data, setData] = useState<DashboardStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const stats = await adminService.getDashboardStats();
+        setData(stats);
+      } catch (err: any) {
+        setError(err.response?.data?.error || 'Failed to load dashboard metrics');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, []);
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'DELIVERED':
-        return <Badge variant="success">Delivered</Badge>;
+        return <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100">Delivered</Badge>;
       case 'OUT_FOR_DELIVERY':
-        return <Badge variant="warning" className="bg-blue-100 text-blue-700 border-blue-200">Out for Delivery</Badge>;
+        return <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Out for Delivery</Badge>;
       case 'PREPARING':
-        return <Badge variant="warning" className="bg-amber-100 text-amber-700">Preparing</Badge>;
+        return <Badge className="bg-amber-100 text-amber-700 hover:bg-amber-100">Preparing</Badge>;
       case 'PENDING':
-        return <Badge variant="secondary">Pending</Badge>;
+        return <Badge className="bg-gray-100 text-gray-700 hover:bg-gray-100">Pending</Badge>;
+      case 'CONFIRMED':
+        return <Badge className="bg-indigo-100 text-indigo-700 hover:bg-indigo-100">Confirmed</Badge>;
+      case 'CANCELLED':
+        return <Badge className="bg-rose-100 text-rose-700 hover:bg-rose-100">Cancelled</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
   };
+
+  if (loading) {
+    return <div className="p-8 text-center text-muted-foreground">Loading dashboard...</div>;
+  }
+
+  if (error) {
+    return <div className="p-8 text-center text-rose-500 font-medium">{error}</div>;
+  }
+
+  if (!data) return null;
+
+  const stats = [
+    {
+      title: 'Total Revenue',
+      value: `₹${data.metrics.totalRevenue.toLocaleString('en-IN')}`,
+      icon: TrendingUp,
+      color: 'bg-emerald-100 text-emerald-600'
+    },
+    {
+      title: 'Active Users',
+      value: data.metrics.activeUsers.toLocaleString(),
+      icon: Users,
+      color: 'bg-blue-100 text-blue-600'
+    },
+    {
+      title: 'Total Orders',
+      value: data.metrics.totalOrders.toLocaleString(),
+      icon: ShoppingCart,
+      color: 'bg-indigo-100 text-indigo-600'
+    },
+    {
+      title: 'Products in Stock',
+      value: data.metrics.activeProducts.toLocaleString(),
+      icon: Package,
+      color: 'bg-amber-100 text-amber-600'
+    },
+  ];
 
   return (
     <div className="space-y-8">
@@ -83,7 +101,6 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => {
           const Icon = stat.icon;
-          const isUp = stat.trend === 'up';
           return (
             <Card key={stat.title}>
               <CardContent className="p-6">
@@ -92,16 +109,9 @@ export default function AdminDashboardPage() {
                     <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
                     <p className="mt-2 text-3xl font-bold tracking-tight">{stat.value}</p>
                   </div>
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${isUp ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'}`}>
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${stat.color}`}>
                     <Icon className="h-6 w-6" />
                   </div>
-                </div>
-                <div className="mt-4 flex items-center gap-2 text-sm">
-                  <span className={`flex items-center font-medium ${isUp ? 'text-emerald-600' : 'text-rose-600'}`}>
-                    {isUp ? <ArrowUpRight className="mr-1 h-4 w-4" /> : <ArrowDownRight className="mr-1 h-4 w-4" />}
-                    {stat.change}
-                  </span>
-                  <span className="text-muted-foreground">vs last month</span>
                 </div>
               </CardContent>
             </Card>
@@ -114,7 +124,6 @@ export default function AdminDashboardPage() {
         <Card className="lg:col-span-2">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Recent Orders</CardTitle>
-            <Button variant="outline" size="sm">View All</Button>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
@@ -128,54 +137,58 @@ export default function AdminDashboardPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y">
-                  {recentOrders.map((order) => (
-                    <tr key={order.id} className="group transition-colors hover:bg-muted/50 cursor-pointer">
-                      <td className="py-4 font-medium">{order.id}</td>
-                      <td className="py-4">
-                        <div>
-                          <p className="font-medium text-foreground">{order.customer}</p>
-                          <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-                            <Clock className="h-3 w-3" /> {order.time}
-                          </p>
-                        </div>
-                      </td>
-                      <td className="py-4 text-right font-medium">₹{order.amount.toLocaleString('en-IN')}</td>
-                      <td className="py-4 text-center">{getStatusBadge(order.status)}</td>
+                  {data.recentOrders.length > 0 ? (
+                    data.recentOrders.map((order) => (
+                      <tr key={order.id} className="group transition-colors hover:bg-muted/50">
+                        <td className="py-4 font-medium">{order.id.slice(-6).toUpperCase()}</td>
+                        <td className="py-4">
+                          <div>
+                            <p className="font-medium text-foreground">{order.customer}</p>
+                            <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                              <Clock className="h-3 w-3" /> {new Date(order.time).toLocaleDateString()}
+                            </p>
+                          </div>
+                        </td>
+                        <td className="py-4 text-right font-medium">₹{order.amount.toLocaleString('en-IN')}</td>
+                        <td className="py-4 text-center">{getStatusBadge(order.status)}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={4} className="py-8 text-center text-muted-foreground">No recent orders found.</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
           </CardContent>
         </Card>
 
-        {/* Top Products / Activities */}
+        {/* Actionable Metrics */}
         <Card>
           <CardHeader>
-            <CardTitle>Top Selling Categories</CardTitle>
+            <CardTitle>Actionable Items</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
-              {[
-                { name: 'Whiskey', sales: 450, percentage: 35, color: 'bg-amber-500' },
-                { name: 'Beer', sales: 320, percentage: 25, color: 'bg-yellow-500' },
-                { name: 'Wine', sales: 280, percentage: 22, color: 'bg-rose-500' },
-                { name: 'Vodka', sales: 150, percentage: 12, color: 'bg-blue-500' },
-                { name: 'Snacks', sales: 75, percentage: 6, color: 'bg-emerald-500' },
-              ].map((cat) => (
-                <div key={cat.name}>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="font-medium">{cat.name}</span>
-                    <span className="text-muted-foreground">{cat.sales} orders</span>
-                  </div>
-                  <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
-                    <div 
-                      className={`h-full rounded-full ${cat.color}`} 
-                      style={{ width: `${cat.percentage}%` }} 
-                    />
-                  </div>
+              <div>
+                <div className="flex justify-between text-sm mb-2">
+                  <span className="font-medium text-amber-600">Low Stock Products</span>
+                  <span className="font-bold text-amber-600">{data.metrics.lowStockProducts}</span>
                 </div>
-              ))}
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-2">
+                  <span className="font-medium text-rose-600">Out of Stock</span>
+                  <span className="font-bold text-rose-600">{data.metrics.outOfStockProducts}</span>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-2">
+                  <span className="font-medium text-indigo-600">Pending Orders</span>
+                  <span className="font-bold text-indigo-600">{data.metrics.pendingOrders}</span>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>

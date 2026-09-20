@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
+import cookieParser from 'cookie-parser';
 import { errorHandler } from './middleware/errorHandler';
 import authRoutes from './routes/authRoutes';
 
@@ -11,9 +12,10 @@ const app = express();
 
 // Security and utility middleware
 app.use(helmet());
-app.use(cors({ origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'https://drinkit-project.vercel.app', 'http://localhost:3001'], credentials: true }));
+app.use(cors({ origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'https://drinkit-project.vercel.app', 'http://localhost:3001', 'http://localhost:3000'], credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(compression());
 app.use(morgan('dev'));
 
