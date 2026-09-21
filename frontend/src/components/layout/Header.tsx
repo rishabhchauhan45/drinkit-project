@@ -214,7 +214,7 @@ export default function Header() {
                       <Settings className="h-4 w-4" />
                       Settings
                     </Link>
-                    {user?.role === 'ADMIN' && (
+                    {user?.role === 'ADMIN' ? (
                       <Link
                         href="/admin"
                         className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm hover:bg-muted transition-colors"
@@ -222,6 +222,15 @@ export default function Header() {
                       >
                         <LayoutDashboard className="h-4 w-4" />
                         Admin Dashboard
+                      </Link>
+                    ) : (
+                      <Link
+                        href="/profile"
+                        className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm hover:bg-muted transition-colors"
+                        onClick={() => setShowUserMenu(false)}
+                      >
+                        <LayoutDashboard className="h-4 w-4" />
+                        Dashboard
                       </Link>
                     )}
                     <div className="border-t mt-1 pt-1">
