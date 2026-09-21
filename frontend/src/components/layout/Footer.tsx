@@ -14,19 +14,19 @@ const footerLinks = {
     { name: 'Mixers & Snacks', href: '/products?category=MIXERS' },
   ],
   company: [
-    { name: 'About Us', href: '/about' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Partner With Us', href: '/partner' },
-    { name: 'Become a Delivery Partner', href: '/delivery-partner' },
-    { name: 'Contact Support', href: '/contact' },
+    { name: 'About Us', href: '#' },
+    { name: 'Careers', href: '#' },
+    { name: 'Blog', href: '#' },
+    { name: 'Partner With Us', href: '#' },
+    { name: 'Become a Delivery Partner', href: '#' },
+    { name: 'Contact Support', href: '#' },
   ],
   legal: [
     { name: 'Terms of Service', href: '/terms' },
     { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Refund Policy', href: '/refund' },
-    { name: 'Age & Compliance', href: '/compliance' },
-    { name: 'Responsible Drinking', href: '/responsible-drinking' },
+    { name: 'Refund Policy', href: '#' },
+    { name: 'Age & Compliance', href: '#' },
+    { name: 'Responsible Drinking', href: '#' },
   ],
 };
 
