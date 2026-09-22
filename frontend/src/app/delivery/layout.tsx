@@ -38,15 +38,15 @@ export default function DeliveryLayout({
   useEffect(() => {
     if (!isAuthenticated) {
       router.push('/login?returnUrl=/delivery');
-    } else if (user?.role !== 'DELIVERY') {
-      // Allow ADMIN to view it too for demo purposes, but normally just DELIVERY
+    } else if (user?.role !== 'DELIVERY_PARTNER') {
+      // Allow ADMIN to view it too for demo purposes, but normally just DELIVERY_PARTNER
       if (user?.role !== 'ADMIN') {
         router.push('/');
       }
     }
   }, [isAuthenticated, user, router]);
 
-  if (!isAuthenticated || (user?.role !== 'DELIVERY' && user?.role !== 'ADMIN')) return null;
+  if (!isAuthenticated || (user?.role !== 'DELIVERY_PARTNER' && user?.role !== 'ADMIN')) return null;
 
   const NavContent = () => (
     <div className="flex h-full flex-col bg-emerald-950 text-white">
