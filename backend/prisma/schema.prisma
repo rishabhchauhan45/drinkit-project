@@ -37,21 +37,38 @@ enum DeliveryStatus {
 }
 
 model User {
-  id         String    @id @default(cuid())
-  email      String    @unique
-  phone      String    @unique
-  name       String
-  age        Int
-  isVerified Boolean   @default(false)
-  password   String
-  role       UserRole  @default(USER)
-  addresses  Address[]
-  orders     Order[]
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id              String           @id @default(cuid())
+  email           String           @unique
+  phone           String           @unique
+  name            String
+  age             Int
+  isVerified      Boolean          @default(false)
+  password        String
+  role            UserRole         @default(USER)
+  addresses       Address[]
+  orders          Order[]
+  deliveryProfile DeliveryProfile?
+  deliveries      Order[]          @relation("DeliveryPartner")
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 
   @@index([email])
   @@index([phone])
+}
+
+model DeliveryProfile {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicleType        String
+  vehicleNumber      String
+  isOnline           Boolean  @default(false)
+  currentLocationLat Float?
+  currentLocationLng Float?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model Address {
@@ -68,25 +85,28 @@ model Address {
 }
 
 model Order {
-  id            String        @id @default(cuid())
-  userId        String
-  user          User          @relation(fields: [userId], references: [id])
-  products      Json
-  totalAmount   Float
-  deliveryFee   Float
-  tax           Float
-  discount      Float         @default(0)
-  status        OrderStatus   @default(PENDING)
-  paymentStatus PaymentStatus @default(PENDING)
-  deliveryId    String?
-  delivery      Delivery?
-  payments      Payment[]
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id                String        @id @default(cuid())
+  userId            String
+  user              User          @relation(fields: [userId], references: [id])
+  products          Json
+  totalAmount       Float
+  deliveryFee       Float
+  tax               Float
+  discount          Float         @default(0)
+  status            OrderStatus   @default(PENDING)
+  paymentStatus     PaymentStatus @default(PENDING)
+  deliveryId        String?
+  delivery          Delivery?
+  deliveryPartnerId String?
+  deliveryPartner   User?         @relation("DeliveryPartner", fields: [deliveryPartnerId], references: [id])
+  payments          Payment[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 
   @@index([userId])
   @@index([status])
   @@index([createdAt])
+  @@index([deliveryPartnerId])
 }
 
 model Delivery {

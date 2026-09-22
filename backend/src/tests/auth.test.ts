@@ -36,8 +36,8 @@ describe('Auth Endpoints', () => {
       .send(testUser);
 
     expect(res.status).toBe(201);
-    expect(res.body).toHaveProperty('token');
-    expect(res.body.email).toBe(testUser.email);
+    expect(res.body.data).toHaveProperty('token');
+    expect(res.body.data.user.email).toBe(testUser.email);
   });
 
   it('should not register user with same email', async () => {
@@ -45,8 +45,8 @@ describe('Auth Endpoints', () => {
       .post('/api/auth/register')
       .send(testUser);
 
-    expect(res.status).toBe(400);
-    expect(res.body.message).toBe('User already exists');
+    expect(res.status).toBe(409);
+    expect(res.body.message).toBe('Email already in use');
   });
 
   it('should login user and get token', async () => {
@@ -58,8 +58,8 @@ describe('Auth Endpoints', () => {
       });
 
     expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty('token');
-    token = res.body.token;
+    expect(res.body.data).toHaveProperty('token');
+    token = res.body.data.token;
   });
 
   it('should not login with invalid credentials', async () => {
@@ -71,7 +71,7 @@ describe('Auth Endpoints', () => {
       });
 
     expect(res.status).toBe(401);
-    expect(res.body.message).toBe('Invalid credentials');
+    expect(res.body.error).toBe('Invalid credentials');
   });
 
   it('should access protected profile route with token', async () => {
@@ -80,7 +80,7 @@ describe('Auth Endpoints', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(res.status).toBe(200);
-    expect(res.body.email).toBe(testUser.email);
+    expect(res.body.data.email).toBe(testUser.email);
   });
 
   it('should not access profile without token', async () => {
