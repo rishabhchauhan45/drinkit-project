@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import { prisma } from '../config/database';
 import { Product } from '../models/Product';
 import { Inventory } from '../models/Inventory';
-import { emitOrderUpdate } from '../config/socket';
+import { emitOrderUpdate } from './socket';
 
 const getRazorpayInstance = () => {
   return new Razorpay({

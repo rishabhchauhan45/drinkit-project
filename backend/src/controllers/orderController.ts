@@ -1,7 +1,7 @@
 import { prisma } from '../config/database';
 import { Product } from '../models/Product';
 import { Inventory } from '../models/Inventory';
-import { emitOrderUpdate } from '../config/socket';
+import { emitOrderUpdate } from './socket';
 
 export const orderController = {
   /**
@@ -11,10 +11,10 @@ export const orderController = {
     let deductedProducts: { id: string, quantity: number }[] = [];
     try {
       const { products, address, paymentMethod } = req.body;
-      
+
       const productIds = products.map((p: any) => p.productId);
       const dbProducts = await Product.find({ _id: { $in: productIds } });
-      
+
       let totalAmount = 0; let deliveryFee = 40; let tax = 0;
       const productDetails = [];
       let containsAlcohol = false;
@@ -45,15 +45,15 @@ export const orderController = {
         product.stock -= item.quantity;
         await product.save();
         deductedProducts.push({ id: product._id.toString(), quantity: item.quantity });
-        
+
         const subtotal = product.price * item.quantity;
         totalAmount += subtotal;
-        productDetails.push({ 
-          productId: product._id, 
-          name: product.name, 
-          price: product.price, 
-          quantity: item.quantity, 
-          image: product.images[0] 
+        productDetails.push({
+          productId: product._id,
+          name: product.name,
+          price: product.price,
+          quantity: item.quantity,
+          image: product.images[0]
         });
       }
 
@@ -73,7 +73,7 @@ export const orderController = {
       });
 
       for (const item of products) {
-        await Inventory.findOneAndUpdate({ productId: item.productId }, { $inc: { reserved: item.quantity } }).catch(() => {});
+        await Inventory.findOneAndUpdate({ productId: item.productId }, { $inc: { reserved: item.quantity } }).catch(() => { });
       }
 
       emitOrderUpdate(order.id, { status: 'PENDING', message: 'Order created' });
@@ -82,10 +82,10 @@ export const orderController = {
     } catch (error: any) {
       if (deductedProducts.length > 0) {
         for (const item of deductedProducts) {
-          await Product.findByIdAndUpdate(item.id, { $inc: { stock: item.quantity } }).catch(() => {});
+          await Product.findByIdAndUpdate(item.id, { $inc: { stock: item.quantity } }).catch(() => { });
         }
       }
-      res.status(400).json({ success: false, error: error.message }); 
+      res.status(400).json({ success: false, error: error.message });
     }
   },
   async getOrderById(req: any, res: any) {
@@ -114,16 +114,16 @@ export const orderController = {
     try {
       const { status } = req.body;
       const orderId = req.params.id;
-      
+
       const currentOrder = await prisma.order.findUnique({ where: { id: orderId } });
       if (!currentOrder) return res.status(404).json({ success: false, error: 'Order not found' });
-      
+
       if (req.user.role === 'USER') {
         if (status !== 'CANCELLED' || currentOrder.status !== 'PENDING') {
           return res.status(403).json({ success: false, error: 'Users can only cancel pending orders' });
         }
       } else if (req.user.role !== 'ADMIN' && req.user.role !== 'DELIVERY_PARTNER') {
-         return res.status(403).json({ success: false, error: 'Unauthorized' });
+        return res.status(403).json({ success: false, error: 'Unauthorized' });
       }
 
       const order = await prisma.order.update({

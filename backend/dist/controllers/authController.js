@@ -92,7 +92,7 @@ exports.authController = {
     async getProfile(req, res) {
         try {
             const user = await database_1.prisma.user.findUnique({ where: { id: req.user.id }, include: { addresses: true } });
-            res.json({ success: true, user });
+            res.json({ success: true, data: user });
         }
         catch (error) {
             res.status(400).json({ success: false, error: error.message });

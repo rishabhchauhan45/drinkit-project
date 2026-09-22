@@ -115,7 +115,8 @@ export const productController = {
   },
   async deleteProduct(req: any, res: any) {
     try {
-      await Product.findByIdAndDelete(req.params.id);
+      // Soft delete: Deactivate the product to preserve references in carts/wishlists
+      await Product.findByIdAndUpdate(req.params.id, { isActive: false });
       try {
         const keys = await redis.keys('products:*');
         if (keys.length > 0) await redis.del(...keys);
