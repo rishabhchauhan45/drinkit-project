@@ -1,5 +1,7 @@
 import { Server as SocketServer } from 'socket.io';
 import { Server } from 'http';
+import jwt from 'jsonwebtoken';
+import { prisma } from '../config/database';
 
 let io: SocketServer;
 
@@ -12,8 +14,23 @@ export const initSocket = (server: Server) => {
   io.on('connection', (socket) => {
     console.log('🔌 Client connected:', socket.id);
 
-    socket.on('join-order', (orderId) => {
-      socket.join(`order:${orderId}`);
+    socket.on('join-order', async ({ orderId, token }) => {
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as any;
+        const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+
+        if (user?.role === 'ADMIN' || user?.role === 'DELIVERY_PARTNER') {
+          socket.join(`order:${orderId}`);
+          return;
+        }
+
+        const order = await prisma.order.findUnique({ where: { id: orderId } });
+        if (order?.userId === user?.id) {
+          socket.join(`order:${orderId}`);
+        }
+      } catch (err) {
+        console.error('Socket join auth failed');
+      }
     });
 
     socket.on('partner-location', (data) => {
