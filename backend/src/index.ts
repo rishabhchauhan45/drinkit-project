@@ -7,11 +7,12 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import { createServer } from 'http';
 import { connectDB } from './config/database';
-import { initSocket } from './config/socket';
+import { initSocket } from './controllers/socket';
 import authRoutes from './routes/authRoutes';
 import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
 import adminRoutes from './routes/adminRoutes';
+import deliveryRoutes from './routes/deliveryRoutes';
 import aiRoutes from './routes/aiRoutes';
 import paymentRoutes from './routes/paymentRoutes';
 import { paymentController } from './controllers/paymentController';
@@ -39,6 +40,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/delivery', deliveryRoutes);
 
 // 404 handler for unknown API routes
 app.use((req, res, next) => {
@@ -55,3 +57,5 @@ connectDB().then(() => {
   initSocket(server);
   server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 });
+
+// Restart nodemon

@@ -17,6 +17,7 @@ const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
 const orderRoutes_1 = __importDefault(require("./routes/orderRoutes"));
 const adminRoutes_1 = __importDefault(require("./routes/adminRoutes"));
+const deliveryRoutes_1 = __importDefault(require("./routes/deliveryRoutes"));
 const aiRoutes_1 = __importDefault(require("./routes/aiRoutes"));
 const paymentRoutes_1 = __importDefault(require("./routes/paymentRoutes"));
 const paymentController_1 = require("./controllers/paymentController");
@@ -25,7 +26,7 @@ const app = (0, express_1.default)();
 const server = (0, http_1.createServer)(app);
 const PORT = process.env.PORT || 5000;
 app.use((0, helmet_1.default)());
-app.use((0, cors_1.default)({ origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'https://drinkit-project.vercel.app', 'http://localhost:3001'], credentials: true }));
+app.use((0, cors_1.default)({ origin: true, credentials: true }));
 app.use((0, compression_1.default)());
 app.use((0, morgan_1.default)('dev'));
 // Webhook must be parsed as raw body for signature verification
@@ -39,6 +40,7 @@ app.use('/api/products', productRoutes_1.default);
 app.use('/api/orders', orderRoutes_1.default);
 app.use('/api/payments', paymentRoutes_1.default);
 app.use('/api/ai', aiRoutes_1.default);
+app.use('/api/delivery', deliveryRoutes_1.default);
 // 404 handler for unknown API routes
 app.use((req, res, next) => {
     res.status(404).json({
@@ -52,3 +54,4 @@ app.use(errorHandler_1.errorHandler);
     (0, socket_1.initSocket)(server);
     server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 });
+// Restart nodemon
