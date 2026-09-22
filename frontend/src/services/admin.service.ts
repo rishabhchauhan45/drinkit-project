@@ -67,5 +67,15 @@ export const adminService = {
   async updateOrderStatus(orderId: string, status: string): Promise<any> {
     const response = await api.put(`/orders/${orderId}/status`, { status });
     return response.data.data;
+  },
+
+  async getDeliveryPartners(): Promise<any[]> {
+    const response = await api.get('/admin/delivery-partners');
+    return response.data.data;
+  },
+
+  async assignDeliveryPartner(orderId: string, partnerId: string): Promise<any> {
+    const response = await api.post(`/admin/orders/${orderId}/assign`, { partnerId });
+    return response.data.data;
   }
 };

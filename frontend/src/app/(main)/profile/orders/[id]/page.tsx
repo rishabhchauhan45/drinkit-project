@@ -8,6 +8,9 @@ import { Badge } from '@/components/ui/badge';
 import { useOrder } from '@/hooks/useOrders';
 import { PageLoader } from '@/components/ui/loading-spinner';
 import { ErrorState } from '@/components/ui/error-state';
+import dynamic from 'next/dynamic';
+
+const DeliveryMap = dynamic(() => import('@/components/delivery/DeliveryMap'), { ssr: false });
 
 export default function OrderDetailPage() {
   const params = useParams();
@@ -109,6 +112,14 @@ export default function OrderDetailPage() {
                 )}
               </CardContent>
             </Card>
+          )}
+
+          {/* Live Tracking Map */}
+          {order.status === 'OUT_FOR_DELIVERY' && (
+            <div className="mt-6">
+              <h3 className="font-semibold mb-4">Live Tracking</h3>
+              <DeliveryMap orderId={order.id} />
+            </div>
           )}
 
           {/* Items */}

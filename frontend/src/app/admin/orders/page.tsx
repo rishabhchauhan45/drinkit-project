@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Search, Clock } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -112,7 +113,11 @@ export default function AdminOrdersPage() {
               ) : orders.length > 0 ? (
                 orders.map((order) => (
                   <tr key={order.id} className="group hover:bg-muted/50 transition-colors">
-                    <td className="p-4 font-medium">{order.id.slice(-6).toUpperCase()}</td>
+                    <td className="p-4 font-medium">
+                      <Link href={`/admin/orders/${order.id}`} className="text-primary hover:underline">
+                        {order.id.slice(-6).toUpperCase()}
+                      </Link>
+                    </td>
                     <td className="p-4">
                       <div>
                         <p className="font-medium text-foreground">{order.user?.name}</p>
@@ -129,15 +134,20 @@ export default function AdminOrdersPage() {
                     <td className="p-4 text-center">{getPaymentBadge(order.paymentStatus)}</td>
                     <td className="p-4 text-center">{getStatusBadge(order.status)}</td>
                     <td className="p-4 text-right">
-                      <select 
-                        value={order.status}
-                        onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                        className="flex h-8 w-full sm:w-32 items-center justify-between rounded-md border border-input bg-background px-3 text-xs ring-offset-background ml-auto"
-                      >
-                        {ORDER_STATUSES.map(status => (
-                          <option key={status} value={status}>{status}</option>
-                        ))}
-                      </select>
+                      <div className="flex items-center justify-end gap-2">
+                        <select 
+                          value={order.status}
+                          onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                          className="flex h-8 w-full sm:w-32 items-center justify-between rounded-md border border-input bg-background px-3 text-xs ring-offset-background ml-auto"
+                        >
+                          {ORDER_STATUSES.map(status => (
+                            <option key={status} value={status}>{status}</option>
+                          ))}
+                        </select>
+                        <Link href={`/admin/orders/${order.id}`}>
+                          <Button variant="outline" size="sm">View</Button>
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 ))

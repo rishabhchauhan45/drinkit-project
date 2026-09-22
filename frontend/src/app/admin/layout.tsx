@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { 
@@ -39,16 +39,23 @@ export default function AdminLayout({
   const pathname = usePathname();
   const { isAuthenticated, user, logout } = useAuth();
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Basic role-based protection
   useEffect(() => {
+    if (!mounted) return;
     if (!isAuthenticated) {
       router.push('/login?returnUrl=/admin');
     } else if (user?.role !== 'ADMIN') {
       router.push('/'); // Or an unauthorized page
     }
-  }, [isAuthenticated, user, router]);
+  }, [isAuthenticated, user, router, mounted]);
 
-  if (!isAuthenticated || user?.role !== 'ADMIN') return null;
+  if (!mounted || !isAuthenticated || user?.role !== 'ADMIN') return null;
 
   const NavContent = () => (
     <div className="flex h-full flex-col">
