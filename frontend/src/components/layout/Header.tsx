@@ -23,6 +23,7 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import type { RootState } from '@/store/store';
 import { setCartDrawerOpen, setMobileMenuOpen, setSearchOpen } from '@/store/slices/uiSlice';
+import { useAuth } from '@/hooks/useAuth';
 
 const categories = [
   { name: 'Whiskey', href: '/products?category=WHISKEY' },
@@ -40,6 +41,7 @@ export default function Header() {
   const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
+  const { logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -238,7 +240,7 @@ export default function Header() {
                         className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-destructive hover:bg-destructive/10 transition-colors"
                         onClick={() => {
                           setShowUserMenu(false);
-                          // logout handled by the page
+                          logout();
                         }}
                       >
                         <LogOut className="h-4 w-4" />
