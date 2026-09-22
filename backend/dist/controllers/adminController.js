@@ -192,5 +192,31 @@ exports.adminController = {
             console.error('updateInventory Error:', error);
             res.status(400).json({ success: false, error: error.message });
         }
+    },
+    async getDeliveryPartners(req, res) {
+        try {
+            const partners = await database_1.prisma.user.findMany({
+                where: { role: 'DELIVERY_PARTNER' },
+                include: { deliveryProfile: true }
+            });
+            res.json({ success: true, data: partners });
+        }
+        catch (error) {
+            res.status(500).json({ success: false, error: error.message });
+        }
+    },
+    async assignDeliveryPartner(req, res) {
+        try {
+            const { partnerId } = req.body;
+            const orderId = req.params.id;
+            const order = await database_1.prisma.order.update({
+                where: { id: orderId },
+                data: { deliveryPartnerId: partnerId, status: 'OUT_FOR_DELIVERY' }
+            });
+            res.json({ success: true, data: order });
+        }
+        catch (error) {
+            res.status(500).json({ success: false, error: error.message });
+        }
     }
 };

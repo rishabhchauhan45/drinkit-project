@@ -17,4 +17,7 @@ router.get('/orders', adminController_1.adminController.getAllOrders);
 // Inventory
 router.get('/inventory', adminController_1.adminController.getInventory);
 router.put('/inventory/:productId', adminController_1.adminController.updateInventory);
+// Delivery Management
+router.get('/delivery-partners', adminController_1.adminController.getDeliveryPartners);
+router.post('/orders/:id/assign', adminController_1.adminController.assignDeliveryPartner);
 exports.default = router;

@@ -18,4 +18,8 @@ router.get('/orders', adminController.getAllOrders);
 router.get('/inventory', adminController.getInventory);
 router.put('/inventory/:productId', adminController.updateInventory);
 
+// Delivery Management
+router.get('/delivery-partners', adminController.getDeliveryPartners);
+router.post('/orders/:id/assign', adminController.assignDeliveryPartner);
+
 export default router;
