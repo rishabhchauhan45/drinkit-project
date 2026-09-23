@@ -13,10 +13,18 @@ import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
 import adminRoutes from './routes/adminRoutes';
 import deliveryRoutes from './routes/deliveryRoutes';
+import couponRoutes from './routes/couponRoutes';
 import aiRoutes from './routes/aiRoutes';
 import paymentRoutes from './routes/paymentRoutes';
 import { paymentController } from './controllers/paymentController';
 import { errorHandler } from './middleware/errorHandler';
+import { connectKafka } from './config/kafka';
+import { startDeliveryLocationConsumer } from './services/kafkaConsumer';
+
+export const config = {
+  port: process.env.PORT || 5000,
+  nodeEnv: process.env.NODE_ENV || 'development'
+};
 
 const app = express();
 const server = createServer(app);
@@ -41,6 +49,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/delivery', deliveryRoutes);
+app.use('/api/coupons', couponRoutes);
 
 // 404 handler for unknown API routes
 app.use((req, res, next) => {
@@ -53,8 +62,10 @@ app.use((req, res, next) => {
 
 app.use(errorHandler);
 
-connectDB().then(() => {
+connectDB().then(async () => {
   initSocket(server);
+  await connectKafka();
+  await startDeliveryLocationConsumer();
   server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 });
 
