@@ -11,6 +11,7 @@ import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { useCreateOrder } from '@/hooks/useOrders';
 import { useCreatePaymentOrder, useVerifyPayment } from '@/hooks/usePayments';
+import { couponService } from '@/services/coupon.service';
 import Script from 'next/script';
 
 const steps = ['Address', 'Payment', 'Review'];
@@ -28,6 +29,16 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'upi' | 'cod'>('card');
   const [isSuccess, setIsSuccess] = useState(false);
   const [orderId, setOrderId] = useState('');
+  
+  // Coupon state
+  const [couponInput, setCouponInput] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+  const [couponDiscount, setCouponDiscount] = useState(0);
+  const [couponError, setCouponError] = useState('');
+  const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
+
+  // Recalculate total
+  const finalTotal = total - couponDiscount;
 
   // Redirect if empty or not authenticated
   if (isEmpty && !isSuccess) {
@@ -60,6 +71,7 @@ export default function CheckoutPage() {
         products: items.map(item => ({ productId: item.productId, quantity: item.quantity })),
         address,
         paymentMethod: paymentMethod.toUpperCase(),
+        couponCode: appliedCoupon || undefined,
       });
 
       if (paymentMethod === 'cod') {
@@ -361,7 +373,7 @@ export default function CheckoutPage() {
                     Back
                   </Button>
                   <Button size="lg" onClick={handlePlaceOrder} isLoading={isPending}>
-                    Place Order & Pay ₹{Math.round(total).toLocaleString('en-IN')}
+                    Place Order & Pay ₹{Math.round(finalTotal).toLocaleString('en-IN')}
                   </Button>
                 </div>
               </motion.div>
@@ -394,23 +406,81 @@ export default function CheckoutPage() {
                 </div>
                 
                 {savings > 0 && (
-                  <div className="flex justify-between text-emerald-600 pb-4 border-b border-dashed">
-                    <span>Discount</span>
+                  <div className="flex justify-between text-emerald-600">
+                    <span>Product Discount</span>
                     <span className="font-medium">-₹{savings.toLocaleString('en-IN')}</span>
                   </div>
                 )}
                 
-                {!savings && <div className="border-b border-dashed pb-4" />}
+                {couponDiscount > 0 && (
+                  <div className="flex justify-between text-emerald-600 pb-4 border-b border-dashed">
+                    <span>Coupon Discount ({appliedCoupon})</span>
+                    <span className="font-medium">-₹{couponDiscount.toLocaleString('en-IN')}</span>
+                  </div>
+                )}
+                
+                {!couponDiscount && <div className="border-b border-dashed pb-4" />}
                 
                 <div className="flex justify-between text-base font-bold pt-2">
                   <span>Total Amount</span>
-                  <span>₹{Math.round(total).toLocaleString('en-IN')}</span>
+                  <span>₹{Math.round(finalTotal).toLocaleString('en-IN')}</span>
                 </div>
               </div>
 
-              {savings > 0 && (
+              {/* Promo Code Section */}
+              <div className="mt-6">
+                <div className="flex gap-2">
+                  <Input 
+                    placeholder="Enter Promo Code" 
+                    value={couponInput}
+                    onChange={(e) => {
+                      setCouponInput(e.target.value);
+                      setCouponError('');
+                    }}
+                    disabled={!!appliedCoupon || isApplyingCoupon}
+                  />
+                  {appliedCoupon ? (
+                    <Button 
+                      variant="outline" 
+                      onClick={() => {
+                        setAppliedCoupon(null);
+                        setCouponDiscount(0);
+                        setCouponInput('');
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  ) : (
+                    <Button 
+                      variant="secondary" 
+                      isLoading={isApplyingCoupon}
+                      onClick={async () => {
+                        if (!couponInput) return;
+                        setIsApplyingCoupon(true);
+                        setCouponError('');
+                        try {
+                          // Note: passing subtotal for cartTotal before tax/delivery
+                          const res = await couponService.applyCoupon(couponInput, subtotal);
+                          setAppliedCoupon(res.data.couponCode);
+                          setCouponDiscount(res.data.discountAmount);
+                        } catch (error: any) {
+                          setCouponError(error?.response?.data?.error || 'Invalid coupon');
+                        } finally {
+                          setIsApplyingCoupon(false);
+                        }
+                      }}
+                    >
+                      Apply
+                    </Button>
+                  )}
+                </div>
+                {couponError && <p className="text-destructive text-xs mt-2">{couponError}</p>}
+                {appliedCoupon && <p className="text-emerald-600 text-xs mt-2 font-medium">Coupon Applied!</p>}
+              </div>
+
+              {(savings > 0 || couponDiscount > 0) && (
                 <div className="mt-6 rounded-lg bg-emerald-50 p-3 text-center text-sm font-medium text-emerald-700 border border-emerald-100">
-                  You will save ₹{savings.toLocaleString('en-IN')} on this order!
+                  You will save ₹{(savings + couponDiscount).toLocaleString('en-IN')} on this order!
                 </div>
               )}
             </CardContent>
