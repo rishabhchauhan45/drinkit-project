@@ -1,5 +1,6 @@
 import { prisma } from '../config/database';
 import { emitOrderUpdate, getIO } from './socket';
+import { producer } from '../config/kafka';
 
 export const deliveryController = {
   // Fetch orders assigned to the logged-in delivery partner
@@ -48,35 +49,35 @@ export const deliveryController = {
     }
   },
 
-  // Update partner location and emit to order room
+  // Update partner location via Kafka
   async updateLocation(req: any, res: any) {
     try {
       const { lat, lng, orderId } = req.body;
       const partnerId = req.user.id;
 
-      // Ensure the order belongs to this partner
-      if (orderId) {
-        const order = await prisma.order.findUnique({ where: { id: orderId } });
-        if (order?.deliveryPartnerId === partnerId) {
-          getIO().to(`order:${orderId}`).emit('partnerLocationUpdate', { lat, lng, timestamp: new Date() });
-        }
+      const payload = {
+        orderId,
+        lat,
+        lng,
+        partnerId,
+        timestamp: new Date()
+      };
+
+      // Publish to Kafka topic instead of doing it synchronously
+      try {
+        await producer.send({
+          topic: 'delivery-location-updates',
+          messages: [
+            { value: JSON.stringify(payload) }
+          ]
+        });
+      } catch (kafkaError) {
+        console.error('Failed to publish location to Kafka:', kafkaError);
+        // Fallback or just log depending on strictness
       }
 
-      // Update the profile with latest coordinates
-      await prisma.deliveryProfile.upsert({
-        where: { userId: partnerId },
-        update: { currentLocationLat: lat, currentLocationLng: lng },
-        create: {
-          userId: partnerId,
-          vehicleType: 'UNKNOWN',
-          vehicleNumber: 'UNKNOWN',
-          currentLocationLat: lat,
-          currentLocationLng: lng,
-          isOnline: true
-        }
-      });
-
-      res.json({ success: true });
+      // Return 202 Accepted immediately for blazing-fast performance
+      res.status(202).json({ success: true, message: 'Location update accepted' });
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
     }
