@@ -11,7 +11,8 @@ import {
   LogOut,
   Bell,
   Menu,
-  Bike
+  Bike,
+  Home
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -79,6 +80,15 @@ export default function DeliveryLayout({
       </div>
 
       <nav className="flex-1 space-y-1 px-4">
+        <Link
+          href="/"
+          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium transition-colors text-white/70 hover:bg-white/5 hover:text-white mb-4"
+        >
+          <div className="text-white/70">
+            <Home className="h-5 w-5" />
+          </div>
+          Back to Home
+        </Link>
         {deliveryNavItems.map((item) => {
           const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href);
           return (
