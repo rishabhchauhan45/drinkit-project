@@ -13,7 +13,8 @@ import {
   Settings,
   LogOut,
   Menu,
-  Bell
+  Bell,
+  Home
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -132,6 +133,12 @@ export default function AdminLayout({
           </div>
 
           <div className="flex items-center gap-4 ml-auto">
+            <Link href="/">
+              <Button variant="outline" size="sm" className="hidden sm:flex gap-2">
+                <Home className="h-4 w-4" />
+                <span>Back to Home</span>
+              </Button>
+            </Link>
             <Button variant="ghost" size="icon" className="relative rounded-full">
               <Bell className="h-5 w-5 text-muted-foreground" />
               <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-destructive border-2 border-background" />
