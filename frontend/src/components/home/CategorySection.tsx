@@ -1,97 +1,39 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 
 const categories = [
-  {
-    name: 'Whiskey',
-    image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=500&auto=format&fit=crop&q=60',
-    color: 'bg-amber-100',
-    textColor: 'text-amber-900',
-    href: '/products?category=WHISKEY',
-  },
-  {
-    name: 'Beer',
-    image: 'https://images.unsplash.com/photo-1616124619460-ff4ed8f4683c?w=500&auto=format&fit=crop&q=60',
-    color: 'bg-yellow-100',
-    textColor: 'text-yellow-900',
-    href: '/products?category=BEER',
-  },
-  {
-    name: 'Wine',
-    image: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=500&auto=format&fit=crop&q=60',
-    color: 'bg-rose-100',
-    textColor: 'text-rose-900',
-    href: '/products?category=WINE',
-  },
-  {
-    name: 'Vodka',
-    image: 'https://images.unsplash.com/photo-1616422285623-14fb795e1e19?w=500&auto=format&fit=crop&q=60',
-    color: 'bg-blue-100',
-    textColor: 'text-blue-900',
-    href: '/products?category=VODKA',
-  },
-  {
-    name: 'Gin',
-    image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=500&auto=format&fit=crop&q=60',
-    color: 'bg-emerald-100',
-    textColor: 'text-emerald-900',
-    href: '/products?category=GIN',
-  },
-  {
-    name: 'Rum',
-    image: 'https://images.unsplash.com/photo-1615887023516-9b6ca5588260?w=500&auto=format&fit=crop&q=60',
-    color: 'bg-orange-100',
-    textColor: 'text-orange-900',
-    href: '/products?category=RUM',
-  },
-  {
-    name: 'Mixers',
-    image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500&auto=format&fit=crop&q=60',
-    color: 'bg-cyan-100',
-    textColor: 'text-cyan-900',
-    href: '/products?category=MIXERS',
-  },
-  {
-    name: 'Snacks',
-    image: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=500&auto=format&fit=crop&q=60',
-    color: 'bg-stone-100',
-    textColor: 'text-stone-900',
-    href: '/products?category=SNACKS',
-  },
+  { name: 'Whiskey', image: 'https://placehold.co/200x200/fef3c7/b45309.png?text=Whiskey', href: '/products?category=WHISKEY' },
+  { name: 'Beer', image: 'https://placehold.co/200x200/fef08a/854d0e.png?text=Beer', href: '/products?category=BEER' },
+  { name: 'Wine', image: 'https://placehold.co/200x200/ffe4e6/be123c.png?text=Wine', href: '/products?category=WINE' },
+  { name: 'Vodka', image: 'https://placehold.co/200x200/dbeafe/1d4ed8.png?text=Vodka', href: '/products?category=VODKA' },
+  { name: 'Gin', image: 'https://placehold.co/200x200/d1fae5/047857.png?text=Gin', href: '/products?category=GIN' },
+  { name: 'Rum', image: 'https://placehold.co/200x200/ffedd5/c2410c.png?text=Rum', href: '/products?category=RUM' },
+  { name: 'Mixers', image: 'https://placehold.co/200x200/cffafe/0f766e.png?text=Mixers', href: '/products?category=MIXERS' },
+  { name: 'Snacks', image: 'https://placehold.co/200x200/f5f5f4/44403c.png?text=Snacks', href: '/products?category=SNACKS' },
 ];
 
 export default function CategorySection() {
   return (
-    <section className="py-12 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold tracking-tight">Shop by Category</h2>
-          <p className="text-muted-foreground mt-1">Explore our wide range of premium beverages</p>
-        </div>
+    <section className="py-8 bg-white border-b border-gray-100">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <h2 className="text-xl font-bold tracking-tight text-slate-900 mb-6">Explore Categories</h2>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
-          {categories.map((category, index) => (
+        <div className="grid grid-cols-4 md:grid-cols-8 gap-3 sm:gap-4">
+          {categories.map((category) => (
             <Link key={category.name} href={category.href}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="group flex flex-col items-center gap-3 cursor-pointer"
-              >
-                <div className={`relative h-24 w-24 sm:h-28 sm:w-28 overflow-hidden rounded-2xl ${category.color} shadow-soft-sm transition-transform duration-300 group-hover:scale-105 group-hover:shadow-soft-md`}>
+              <div className="flex flex-col items-center gap-2 cursor-pointer group">
+                <div className="relative w-full aspect-square overflow-hidden rounded-xl bg-gray-50 border border-gray-100 shadow-sm transition-transform duration-200 group-hover:shadow-md group-hover:-translate-y-1">
                   <img
                     src={category.image}
                     alt={category.name}
-                    className="h-full w-full object-cover mix-blend-multiply opacity-90 transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover"
                   />
                 </div>
-                <span className={`text-sm font-semibold ${category.textColor} transition-colors group-hover:text-primary`}>
+                <span className="text-xs sm:text-sm font-semibold text-slate-800 text-center leading-tight">
                   {category.name}
                 </span>
-              </motion.div>
+              </div>
             </Link>
           ))}
         </div>
