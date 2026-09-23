@@ -21,5 +21,7 @@ router.put('/inventory/:productId', adminController.updateInventory);
 // Delivery Management
 router.get('/delivery-partners', adminController.getDeliveryPartners);
 router.post('/orders/:id/assign', adminController.assignDeliveryPartner);
+// AI Generation
+router.post('/seed-ai-data', adminController.seedAiData);
 
 export default router;
