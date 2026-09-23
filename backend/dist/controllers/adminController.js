@@ -5,6 +5,7 @@ const database_1 = require("../config/database");
 const Product_1 = require("../models/Product");
 const database_2 = require("../config/database");
 const zod_1 = require("zod");
+const ai_seeder_service_1 = require("../services/ai-seeder.service");
 const stockUpdateSchema = zod_1.z.object({
     stock: zod_1.z.number().min(0, 'Stock cannot be negative').or(zod_1.z.string().regex(/^\d+$/).transform(Number).refine(val => val >= 0, 'Stock cannot be negative'))
 });
@@ -217,6 +218,16 @@ exports.adminController = {
         }
         catch (error) {
             res.status(500).json({ success: false, error: error.message });
+        }
+    },
+    async seedAiData(req, res) {
+        try {
+            const result = await ai_seeder_service_1.aiSeederService.seedData();
+            res.json({ success: true, message: 'AI Data Seeded Successfully', data: result });
+        }
+        catch (error) {
+            console.error('seedAiData Error:', error);
+            res.status(500).json({ success: false, error: error.message || 'Failed to seed AI data' });
         }
     }
 };
