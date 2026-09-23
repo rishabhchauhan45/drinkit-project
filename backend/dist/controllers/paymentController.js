@@ -7,7 +7,7 @@ exports.paymentController = void 0;
 const razorpay_1 = __importDefault(require("razorpay"));
 const crypto_1 = __importDefault(require("crypto"));
 const database_1 = require("../config/database");
-const socket_1 = require("../config/socket");
+const socket_1 = require("./socket");
 const getRazorpayInstance = () => {
     return new razorpay_1.default({
         key_id: process.env.RAZORPAY_KEY_ID || '',
