@@ -4,7 +4,7 @@ exports.orderController = void 0;
 const database_1 = require("../config/database");
 const Product_1 = require("../models/Product");
 const Inventory_1 = require("../models/Inventory");
-const socket_1 = require("../config/socket");
+const socket_1 = require("./socket");
 exports.orderController = {
     /**
      * Creates a new order. Handles inventory check, age verification for alcohol, and safe stock deduction.
@@ -12,7 +12,7 @@ exports.orderController = {
     async createOrder(req, res) {
         let deductedProducts = [];
         try {
-            const { products, address, paymentMethod } = req.body;
+            const { products, address, paymentMethod, couponCode } = req.body;
             const productIds = products.map((p) => p.productId);
             const dbProducts = await Product_1.Product.find({ _id: { $in: productIds } });
             let totalAmount = 0;
@@ -57,13 +57,44 @@ exports.orderController = {
             if (totalAmount > 500)
                 deliveryFee = 0;
             tax = totalAmount * 0.18;
+            let discount = 0;
+            let finalCouponCode = null;
+            // Re-validate coupon if provided
+            if (couponCode) {
+                const coupon = await database_1.prisma.coupon.findUnique({ where: { code: couponCode.toUpperCase() } });
+                if (coupon && coupon.isActive && new Date() <= coupon.expiryDate && coupon.usedCount < coupon.usageLimit) {
+                    const cartTotal = totalAmount; // Discount is calculated on products total, before tax and delivery (typically)
+                    if (!coupon.minOrderValue || cartTotal >= coupon.minOrderValue) {
+                        if (coupon.discountType === 'PERCENTAGE') {
+                            discount = (cartTotal * coupon.discountValue) / 100;
+                            if (coupon.maxDiscount && discount > coupon.maxDiscount) {
+                                discount = coupon.maxDiscount;
+                            }
+                        }
+                        else {
+                            discount = coupon.discountValue;
+                        }
+                        if (discount > cartTotal)
+                            discount = cartTotal;
+                        finalCouponCode = coupon.code;
+                        // Increment usedCount
+                        await database_1.prisma.coupon.update({
+                            where: { id: coupon.id },
+                            data: { usedCount: { increment: 1 } }
+                        });
+                    }
+                }
+            }
+            const orderTotal = totalAmount + deliveryFee + tax - discount;
             const order = await database_1.prisma.order.create({
                 data: {
                     userId: req.user.id,
                     products: productDetails,
-                    totalAmount: totalAmount + deliveryFee + tax,
+                    totalAmount: orderTotal,
                     deliveryFee,
                     tax,
+                    discount,
+                    couponCode: finalCouponCode,
                     status: 'PENDING',
                     paymentStatus: 'PENDING'
                 }
