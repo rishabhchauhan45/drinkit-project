@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deliveryController = void 0;
 const database_1 = require("../config/database");
-const socket_1 = require("../config/socket");
+const socket_1 = require("./socket");
+const kafka_1 = require("../config/kafka");
 exports.deliveryController = {
     // Fetch orders assigned to the logged-in delivery partner
     async getAssignedOrders(req, res) {
@@ -46,32 +47,33 @@ exports.deliveryController = {
             res.status(500).json({ success: false, error: error.message });
         }
     },
-    // Update partner location and emit to order room
+    // Update partner location via Kafka
     async updateLocation(req, res) {
         try {
             const { lat, lng, orderId } = req.body;
             const partnerId = req.user.id;
-            // Ensure the order belongs to this partner
-            if (orderId) {
-                const order = await database_1.prisma.order.findUnique({ where: { id: orderId } });
-                if (order?.deliveryPartnerId === partnerId) {
-                    (0, socket_1.getIO)().to(`order:${orderId}`).emit('partnerLocationUpdate', { lat, lng, timestamp: new Date() });
-                }
+            const payload = {
+                orderId,
+                lat,
+                lng,
+                partnerId,
+                timestamp: new Date()
+            };
+            // Publish to Kafka topic instead of doing it synchronously
+            try {
+                await kafka_1.producer.send({
+                    topic: 'delivery-location-updates',
+                    messages: [
+                        { value: JSON.stringify(payload) }
+                    ]
+                });
             }
-            // Update the profile with latest coordinates
-            await database_1.prisma.deliveryProfile.upsert({
-                where: { userId: partnerId },
-                update: { currentLocationLat: lat, currentLocationLng: lng },
-                create: {
-                    userId: partnerId,
-                    vehicleType: 'UNKNOWN',
-                    vehicleNumber: 'UNKNOWN',
-                    currentLocationLat: lat,
-                    currentLocationLng: lng,
-                    isOnline: true
-                }
-            });
-            res.json({ success: true });
+            catch (kafkaError) {
+                console.error('Failed to publish location to Kafka:', kafkaError);
+                // Fallback or just log depending on strictness
+            }
+            // Return 202 Accepted immediately for blazing-fast performance
+            res.status(202).json({ success: true, message: 'Location update accepted' });
         }
         catch (error) {
             res.status(500).json({ success: false, error: error.message });
