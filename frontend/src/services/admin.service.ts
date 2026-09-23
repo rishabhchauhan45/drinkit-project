@@ -77,5 +77,10 @@ export const adminService = {
   async assignDeliveryPartner(orderId: string, partnerId: string): Promise<any> {
     const response = await api.post(`/admin/orders/${orderId}/assign`, { partnerId });
     return response.data.data;
+  },
+
+  async seedAiData(): Promise<{ productsSeeded: number, ordersSeeded: number }> {
+    const response = await api.post('/admin/seed-ai-data');
+    return response.data.data;
   }
 };
