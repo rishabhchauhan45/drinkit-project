@@ -2,7 +2,8 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { User, ShoppingBag, Heart, MapPin, Settings, LogOut } from 'lucide-react';
+import { User, ShoppingBag, Heart, MapPin, Settings, LogOut, Home } from 'lucide-react';
+import Link from 'next/link';
 import Sidebar from '@/components/layout/Sidebar';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -36,6 +37,11 @@ export default function ProfileLayout({
         
         {/* Sidebar */}
         <div className="w-full lg:w-64 shrink-0 space-y-4">
+          <Link href="/" className="flex items-center gap-2 mb-6 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+            <Home className="h-4 w-4" />
+            Back to Home
+          </Link>
+          
           <Sidebar 
             items={sidebarItems} 
             title={user?.name}
