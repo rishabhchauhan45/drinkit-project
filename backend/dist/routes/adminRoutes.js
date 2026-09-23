@@ -20,4 +20,6 @@ router.put('/inventory/:productId', adminController_1.adminController.updateInve
 // Delivery Management
 router.get('/delivery-partners', adminController_1.adminController.getDeliveryPartners);
 router.post('/orders/:id/assign', adminController_1.adminController.assignDeliveryPartner);
+// AI Generation
+router.post('/seed-ai-data', adminController_1.adminController.seedAiData);
 exports.default = router;
