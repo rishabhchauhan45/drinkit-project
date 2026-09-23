@@ -2,6 +2,7 @@ import { prisma } from '../config/database';
 import { Product } from '../models/Product';
 import { redis } from '../config/database';
 import { z } from 'zod';
+import { aiSeederService } from '../services/ai-seeder.service';
 
 const stockUpdateSchema = z.object({
   stock: z.number().min(0, 'Stock cannot be negative').or(z.string().regex(/^\d+$/).transform(Number).refine(val => val >= 0, 'Stock cannot be negative'))
@@ -227,6 +228,16 @@ export const adminController = {
       res.json({ success: true, data: order });
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
+    }
+  },
+
+  async seedAiData(req: any, res: any) {
+    try {
+      const result = await aiSeederService.seedData();
+      res.json({ success: true, message: 'AI Data Seeded Successfully', data: result });
+    } catch (error: any) {
+      console.error('seedAiData Error:', error);
+      res.status(500).json({ success: false, error: error.message || 'Failed to seed AI data' });
     }
   }
 };
