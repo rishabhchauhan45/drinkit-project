@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.config = void 0;
 require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
@@ -12,16 +13,23 @@ const compression_1 = __importDefault(require("compression"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const http_1 = require("http");
 const database_1 = require("./config/database");
-const socket_1 = require("./config/socket");
+const socket_1 = require("./controllers/socket");
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
 const orderRoutes_1 = __importDefault(require("./routes/orderRoutes"));
 const adminRoutes_1 = __importDefault(require("./routes/adminRoutes"));
 const deliveryRoutes_1 = __importDefault(require("./routes/deliveryRoutes"));
+const couponRoutes_1 = __importDefault(require("./routes/couponRoutes"));
 const aiRoutes_1 = __importDefault(require("./routes/aiRoutes"));
 const paymentRoutes_1 = __importDefault(require("./routes/paymentRoutes"));
 const paymentController_1 = require("./controllers/paymentController");
 const errorHandler_1 = require("./middleware/errorHandler");
+const kafka_1 = require("./config/kafka");
+const kafkaConsumer_1 = require("./services/kafkaConsumer");
+exports.config = {
+    port: process.env.PORT || 5000,
+    nodeEnv: process.env.NODE_ENV || 'development'
+};
 const app = (0, express_1.default)();
 const server = (0, http_1.createServer)(app);
 const PORT = process.env.PORT || 5000;
@@ -41,6 +49,7 @@ app.use('/api/orders', orderRoutes_1.default);
 app.use('/api/payments', paymentRoutes_1.default);
 app.use('/api/ai', aiRoutes_1.default);
 app.use('/api/delivery', deliveryRoutes_1.default);
+app.use('/api/coupons', couponRoutes_1.default);
 // 404 handler for unknown API routes
 app.use((req, res, next) => {
     res.status(404).json({
@@ -50,8 +59,10 @@ app.use((req, res, next) => {
     });
 });
 app.use(errorHandler_1.errorHandler);
-(0, database_1.connectDB)().then(() => {
+(0, database_1.connectDB)().then(async () => {
     (0, socket_1.initSocket)(server);
+    await (0, kafka_1.connectKafka)();
+    await (0, kafkaConsumer_1.startDeliveryLocationConsumer)();
     server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 });
 // Restart nodemon
