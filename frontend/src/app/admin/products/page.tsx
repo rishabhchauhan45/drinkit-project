@@ -7,7 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { productService } from '@/services/product.service';
+import { adminService } from '@/services/admin.service';
 import type { Product } from '@/types';
+import { Loader2 } from 'lucide-react';
+import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -15,6 +18,7 @@ export default function AdminProductsPage() {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [isSeeding, setIsSeeding] = useState(false);
 
   const fetchProducts = async () => {
     try {
@@ -44,6 +48,20 @@ export default function AdminProductsPage() {
     }
   };
 
+  const handleSeedData = async () => {
+    try {
+      setIsSeeding(true);
+      const res = await adminService.seedAiData();
+      alert(`Success! Generated ${res.productsSeeded} products and ${res.ordersSeeded} mock orders.`);
+      fetchProducts();
+      setPage(1);
+    } catch (error: any) {
+      alert(error?.response?.data?.error || 'Failed to generate AI data');
+    } finally {
+      setIsSeeding(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -51,11 +69,17 @@ export default function AdminProductsPage() {
           <h1 className="text-3xl font-bold tracking-tight">Products</h1>
           <p className="text-muted-foreground mt-1">Manage your store's inventory and product details.</p>
         </div>
-        <Link href="/admin/products/new">
-          <Button className="w-full sm:w-auto">
-            <Plus className="mr-2 h-4 w-4" /> Add Product
+        <div className="flex items-center gap-2">
+          <Button variant="secondary" onClick={handleSeedData} disabled={isSeeding}>
+            {isSeeding ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+            Seed Real Catalog Data
           </Button>
-        </Link>
+          <Link href="/admin/products/new">
+            <Button className="w-full sm:w-auto">
+              <Plus className="mr-2 h-4 w-4" /> Add Product
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -96,8 +120,17 @@ export default function AdminProductsPage() {
                   <tr key={product._id} className="group hover:bg-muted/50 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        {product.images?.[0] && (
-                          <img src={product.images[0]} alt={product.name} className="h-10 w-10 rounded-md object-cover bg-muted" />
+                        {product.images?.[0] ? (
+                          <div className="relative h-10 w-10 shrink-0">
+                            <ImageWithFallback 
+                              src={product.images[0]} 
+                              alt={product.name} 
+                              fill 
+                              className="rounded-md object-cover bg-muted" 
+                            />
+                          </div>
+                        ) : (
+                          <div className="h-10 w-10 rounded-md bg-muted shrink-0" />
                         )}
                         <div>
                           <p className="font-medium text-foreground">{product.name}</p>
