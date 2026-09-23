@@ -10,7 +10,7 @@ export const orderController = {
   async createOrder(req: any, res: any) {
     let deductedProducts: { id: string, quantity: number }[] = [];
     try {
-      const { products, address, paymentMethod } = req.body;
+      const { products, address, paymentMethod, couponCode } = req.body;
 
       const productIds = products.map((p: any) => p.productId);
       const dbProducts = await Product.find({ _id: { $in: productIds } });
@@ -60,13 +60,50 @@ export const orderController = {
       if (totalAmount > 500) deliveryFee = 0;
       tax = totalAmount * 0.18;
 
+      let discount = 0;
+      let finalCouponCode = null;
+
+      // Re-validate coupon if provided
+      if (couponCode) {
+        const coupon = await prisma.coupon.findUnique({ where: { code: couponCode.toUpperCase() } });
+        
+        if (coupon && coupon.isActive && new Date() <= coupon.expiryDate && coupon.usedCount < coupon.usageLimit) {
+          const cartTotal = totalAmount; // Discount is calculated on products total, before tax and delivery (typically)
+          
+          if (!coupon.minOrderValue || cartTotal >= coupon.minOrderValue) {
+            if (coupon.discountType === 'PERCENTAGE') {
+              discount = (cartTotal * coupon.discountValue) / 100;
+              if (coupon.maxDiscount && discount > coupon.maxDiscount) {
+                discount = coupon.maxDiscount;
+              }
+            } else {
+              discount = coupon.discountValue;
+            }
+
+            if (discount > cartTotal) discount = cartTotal;
+
+            finalCouponCode = coupon.code;
+            
+            // Increment usedCount
+            await prisma.coupon.update({
+              where: { id: coupon.id },
+              data: { usedCount: { increment: 1 } }
+            });
+          }
+        }
+      }
+
+      const orderTotal = totalAmount + deliveryFee + tax - discount;
+
       const order = await prisma.order.create({
         data: {
           userId: req.user.id,
           products: productDetails,
-          totalAmount: totalAmount + deliveryFee + tax,
+          totalAmount: orderTotal,
           deliveryFee,
           tax,
+          discount,
+          couponCode: finalCouponCode,
           status: 'PENDING',
           paymentStatus: 'PENDING'
         }
