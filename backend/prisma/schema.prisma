@@ -36,6 +36,11 @@ enum DeliveryStatus {
   DELIVERED
 }
 
+enum DiscountType {
+  PERCENTAGE
+  FLAT
+}
+
 model User {
   id              String           @id @default(cuid())
   email           String           @unique
@@ -93,6 +98,7 @@ model Order {
   deliveryFee       Float
   tax               Float
   discount          Float         @default(0)
+  couponCode        String?
   status            OrderStatus   @default(PENDING)
   paymentStatus     PaymentStatus @default(PENDING)
   deliveryId        String?
@@ -107,6 +113,23 @@ model Order {
   @@index([status])
   @@index([createdAt])
   @@index([deliveryPartnerId])
+}
+
+model Coupon {
+  id            String       @id @default(cuid())
+  code          String       @unique
+  discountType  DiscountType
+  discountValue Float
+  minOrderValue Float?
+  maxDiscount   Float?
+  expiryDate    DateTime
+  isActive      Boolean      @default(true)
+  usageLimit    Int
+  usedCount     Int          @default(0)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([code])
 }
 
 model Delivery {
