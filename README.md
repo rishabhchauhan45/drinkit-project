@@ -12,7 +12,7 @@ DrinkIt is a modern, full-stack alcohol and snacks delivery platform, designed w
 - **Redux Toolkit** & **React Query** for state management
 - **Socket.io-client** for real-time delivery tracking
 
-**Backend:**
+**Backend:
 - **Node.js & Express** with TypeScript
 - **PostgreSQL** (via **Prisma 5 ORM**) for transactional data (Users, Orders, Delivery)
 - **MongoDB** (via **Mongoose**) for high-volume flexible data (Products, Inventory, Categories)
