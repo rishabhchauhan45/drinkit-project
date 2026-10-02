@@ -214,6 +214,7 @@ export interface CreateOrderRequest {
   products: Array<{ productId: string; quantity: number }>;
   address: string;
   paymentMethod: string;
+  couponCode?: string;
 }
 
 // ---------- Auth Response ----------
@@ -292,3 +293,4 @@ export interface Brand {
   logo: string;
   productCount: number;
 }
+// Dummy comment 1
