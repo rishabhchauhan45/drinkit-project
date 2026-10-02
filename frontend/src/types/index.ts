@@ -294,3 +294,4 @@ export interface Brand {
   productCount: number;
 }
 // Dummy comment 1
+// Dummy comment 2
