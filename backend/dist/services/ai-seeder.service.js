@@ -1,51 +1,21 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.aiSeederService = void 0;
 const Product_1 = require("../models/Product");
 const database_1 = require("../config/database");
-// Helper to safely parse AI JSON responses
-const cleanJsonResponse = (text) => {
-    let cleaned = text.trim();
-    if (cleaned.startsWith('```json')) {
-        cleaned = cleaned.replace(/^```json/, '');
-    }
-    if (cleaned.startsWith('```')) {
-        cleaned = cleaned.replace(/^```/, '');
-    }
-    if (cleaned.endsWith('```')) {
-        cleaned = cleaned.replace(/```$/, '');
-    }
-    return JSON.parse(cleaned.trim());
-};
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 exports.aiSeederService = {
-    async generateProducts() {
-        const { GoogleGenAI } = await import('@google/genai');
-        const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-        const prompt = `
-    Act as an e-commerce catalog expert for a beverage store.
-    Return a strictly formatted JSON array of exactly 10 realistic beverage/drink products.
-    Each product object MUST have the following fields:
-    - name: string (e.g. "Royal Challenge Premium")
-    - description: string (catchy, 1-2 sentences)
-    - price: number (realistic INR price between 200 and 5000)
-    - category: string (MUST be one of: 'WHISKEY', 'VODKA', 'RUM', 'GIN', 'WINE', 'BEER', 'SNACKS', 'MIXERS')
-    - stock: number (random between 10 and 100)
-    - imageUrl: string (use a realistic unsplash placeholder URL for beverages, e.g. "https://images.unsplash.com/photo-...&w=400&q=80")
-    - brand: string (e.g. "Royal Challenge", "Smirnoff")
-    
-    Do NOT return any other text, markdown formatting, or explanation. ONLY the JSON array.
-    `;
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: prompt,
-        });
-        const responseText = response.text || '[]';
-        return cleanJsonResponse(responseText);
-    },
     async seedData() {
-        // 1. Generate Products
-        const generatedProducts = await this.generateProducts();
-        // 2. Insert into MongoDB
+        // 1. Read Hardcoded Real Products
+        const dataPath = path_1.default.join(__dirname, '../data/real-products.json');
+        const fileContent = fs_1.default.readFileSync(dataPath, 'utf-8');
+        const generatedProducts = JSON.parse(fileContent);
+        // 2. Clear Existing Products and Insert into MongoDB
+        await Product_1.Product.deleteMany({});
         const savedProducts = [];
         for (const p of generatedProducts) {
             const product = new Product_1.Product({
