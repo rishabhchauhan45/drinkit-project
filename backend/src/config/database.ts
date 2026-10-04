@@ -6,6 +6,7 @@ export const prisma = new PrismaClient();
 
 export const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
   maxRetriesPerRequest: null,
+  enableReadyCheck: false,
   retryStrategy: (times) => {
     // Stop retrying after 3 attempts
     if (times > 3) return null;

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, ShieldCheck, Search } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import { setSearchOpen } from '@/store/slices/uiSlice';
 
 const slides = [
   {
@@ -31,6 +33,7 @@ const slides = [
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -70,15 +73,17 @@ export default function HeroSection() {
               </motion.div>
             </AnimatePresence>
 
-            <div className="mt-auto pt-[280px] sm:pt-[240px] lg:pt-[280px] w-full max-w-xl">
+            <div className="mt-auto pt-[340px] sm:pt-[300px] lg:pt-[360px] w-full max-w-xl">
               <div className="relative flex-1 mb-6">
                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                   <Search className="h-5 w-5 text-gray-400" />
                 </div>
                 <input 
                   type="text" 
+                  readOnly
+                  onClick={() => dispatch(setSearchOpen(true))}
                   placeholder="Search for 'Old Monk' or 'Kingfisher'..." 
-                  className="h-14 w-full rounded-2xl border-0 bg-white pl-12 pr-4 text-base focus:outline-none focus:ring-4 focus:ring-yellow-300 shadow-md transition-all"
+                  className="h-14 w-full rounded-2xl border-0 bg-white pl-12 pr-4 text-base focus:outline-none focus:ring-4 focus:ring-yellow-300 shadow-md transition-all cursor-pointer"
                 />
               </div>
 
