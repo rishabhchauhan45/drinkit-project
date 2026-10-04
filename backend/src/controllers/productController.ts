@@ -42,11 +42,6 @@ export const productController = {
       let sortConfig: any = { _id: 1 };
       if (sort === 'price_asc') sortConfig = { price: 1 };
       else if (sort === 'price_desc') sortConfig = { price: -1 };
-      else if (sort === 'name_asc') sortConfig = { name: 1 };
-      else if (sort === 'name_desc') sortConfig = { name: -1 };
-      else if (sort === 'newest') sortConfig = { createdAt: -1 };
-      else if (sort === 'discount') sortConfig = { discount: -1 };
-      else if (sort === 'popular') sortConfig = { _id: 1 };
       
       const products = await Product.find(filter).sort(sortConfig).skip((Number(page) - 1) * Number(limit)).limit(Number(limit)).populate('pairings');
       try {
