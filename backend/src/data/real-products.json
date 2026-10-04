@@ -5,7 +5,7 @@
     "price": 400,
     "category": "RUM",
     "stock": 50,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Old%20Monk",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Rum_glass.jpg/800px-Rum_glass.jpg",
     "brand": "Old Monk"
   },
   {
@@ -14,7 +14,7 @@
     "price": 150,
     "category": "BEER",
     "stock": 120,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Kingfisher",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Glass_of_beer.jpg/800px-Glass_of_beer.jpg",
     "brand": "Kingfisher"
   },
   {
@@ -23,7 +23,7 @@
     "price": 2000,
     "category": "VODKA",
     "stock": 30,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Absolut",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Absolut_Vodka.jpg/800px-Absolut_Vodka.jpg",
     "brand": "Absolut"
   },
   {
@@ -32,7 +32,7 @@
     "price": 4500,
     "category": "WHISKEY",
     "stock": 15,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Glenfiddich",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Glenfiddich_12_yo.jpg/800px-Glenfiddich_12_yo.jpg",
     "brand": "Glenfiddich"
   },
   {
@@ -41,7 +41,7 @@
     "price": 1200,
     "category": "RUM",
     "stock": 45,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Bacardi",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Bacardi_Superior.jpg/800px-Bacardi_Superior.jpg",
     "brand": "Bacardi"
   },
   {
@@ -50,7 +50,7 @@
     "price": 180,
     "category": "BEER",
     "stock": 80,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Bira%2091",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Wheat_beer.jpg/800px-Wheat_beer.jpg",
     "brand": "Bira 91"
   },
   {
@@ -59,7 +59,7 @@
     "price": 850,
     "category": "VODKA",
     "stock": 60,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Radico%20Khaitan",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Vodka_bottle.jpg/800px-Vodka_bottle.jpg",
     "brand": "Radico Khaitan"
   },
   {
@@ -68,7 +68,7 @@
     "price": 3200,
     "category": "WHISKEY",
     "stock": 25,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Jack%20Daniel's",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Jack_Daniel%27s.jpg/800px-Jack_Daniel%27s.jpg",
     "brand": "Jack Daniel's"
   },
   {
@@ -77,7 +77,7 @@
     "price": 750,
     "category": "WINE",
     "stock": 40,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Sula%20Vineyards",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/White_wine_glass.jpg/800px-White_wine_glass.jpg",
     "brand": "Sula Vineyards"
   },
   {
@@ -86,7 +86,7 @@
     "price": 1400,
     "category": "VODKA",
     "stock": 70,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Smirnoff",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Smirnoff_Red_Label.jpg/800px-Smirnoff_Red_Label.jpg",
     "brand": "Smirnoff"
   },
   {
@@ -95,7 +95,7 @@
     "price": 1100,
     "category": "WHISKEY",
     "stock": 55,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Pernod%20Ricard",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Whisky_bottle.jpg/800px-Whisky_bottle.jpg",
     "brand": "Pernod Ricard"
   },
   {
@@ -104,7 +104,7 @@
     "price": 950,
     "category": "WHISKEY",
     "stock": 65,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=United%20Spirits",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Whisky.jpg/800px-Whisky.jpg",
     "brand": "United Spirits"
   },
   {
@@ -113,7 +113,7 @@
     "price": 1300,
     "category": "RUM",
     "stock": 35,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Captain%20Morgan",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Captain_Morgan_Spiced_Gold.jpg/800px-Captain_Morgan_Spiced_Gold.jpg",
     "brand": "Captain Morgan"
   },
   {
@@ -122,7 +122,7 @@
     "price": 200,
     "category": "BEER",
     "stock": 90,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Heineken",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Heineken_bottle.jpg/800px-Heineken_bottle.jpg",
     "brand": "Heineken"
   },
   {
@@ -131,7 +131,7 @@
     "price": 1800,
     "category": "WINE",
     "stock": 20,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Jacob's%20Creek",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Red_wine_glass.jpg/800px-Red_wine_glass.jpg",
     "brand": "Jacob's Creek"
   },
   {
@@ -140,7 +140,7 @@
     "price": 250,
     "category": "BEER",
     "stock": 85,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Corona",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Corona_Extra.jpg/800px-Corona_Extra.jpg",
     "brand": "Corona"
   },
   {
@@ -149,7 +149,7 @@
     "price": 600,
     "category": "GIN",
     "stock": 45,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=United%20Spirits",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Gin.jpg/800px-Gin.jpg",
     "brand": "United Spirits"
   },
   {
@@ -158,7 +158,7 @@
     "price": 2800,
     "category": "GIN",
     "stock": 25,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Bombay%20Sapphire",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Bombay_Sapphire.jpg/800px-Bombay_Sapphire.jpg",
     "brand": "Bombay Sapphire"
   },
   {
@@ -167,7 +167,7 @@
     "price": 50,
     "category": "SNACKS",
     "stock": 200,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Haldiram's",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Aloo_Bhujia.jpg/800px-Aloo_Bhujia.jpg",
     "brand": "Haldiram's"
   },
   {
@@ -176,7 +176,7 @@
     "price": 20,
     "category": "SNACKS",
     "stock": 150,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Lay's",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Potato_chips_bowl.jpg/800px-Potato_chips_bowl.jpg",
     "brand": "Lay's"
   },
   {
@@ -185,7 +185,7 @@
     "price": 20,
     "category": "SNACKS",
     "stock": 300,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Kurkure",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Potato_chips_bowl.jpg/800px-Potato_chips_bowl.jpg",
     "brand": "Kurkure"
   },
   {
@@ -194,7 +194,7 @@
     "price": 50,
     "category": "SNACKS",
     "stock": 100,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Doritos",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Tortilla_chips.jpg/800px-Tortilla_chips.jpg",
     "brand": "Doritos"
   },
   {
@@ -203,7 +203,7 @@
     "price": 40,
     "category": "SNACKS",
     "stock": 250,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Generic",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Roasted_peanuts.jpg/800px-Roasted_peanuts.jpg",
     "brand": "Generic"
   },
   {
@@ -212,7 +212,7 @@
     "price": 20,
     "category": "SNACKS",
     "stock": 120,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Bingo",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Tortilla_chips.jpg/800px-Tortilla_chips.jpg",
     "brand": "Bingo"
   },
   {
@@ -221,7 +221,7 @@
     "price": 90,
     "category": "SNACKS",
     "stock": 80,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Cornitos",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Tortilla_chips.jpg/800px-Tortilla_chips.jpg",
     "brand": "Cornitos"
   },
   {
@@ -230,7 +230,7 @@
     "price": 60,
     "category": "SNACKS",
     "stock": 100,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Haldiram's",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Bombay_mix.jpg/800px-Bombay_mix.jpg",
     "brand": "Haldiram's"
   },
   {
@@ -239,7 +239,7 @@
     "price": 110,
     "category": "SNACKS",
     "stock": 60,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Pringles",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Potato_chips_bowl.jpg/800px-Potato_chips_bowl.jpg",
     "brand": "Pringles"
   },
   {
@@ -248,7 +248,7 @@
     "price": 40,
     "category": "SNACKS",
     "stock": 150,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Too%20Yumm!",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Potato_chips_bowl.jpg/800px-Potato_chips_bowl.jpg",
     "brand": "Too Yumm!"
   },
   {
@@ -257,7 +257,7 @@
     "price": 50,
     "category": "SNACKS",
     "stock": 200,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Bikanervala",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Aloo_Bhujia.jpg/800px-Aloo_Bhujia.jpg",
     "brand": "Bikanervala"
   },
   {
@@ -266,7 +266,7 @@
     "price": 35,
     "category": "SNACKS",
     "stock": 300,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=ACT%20II",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Popcorn.jpg/800px-Popcorn.jpg",
     "brand": "ACT II"
   },
   {
@@ -275,7 +275,7 @@
     "price": 55,
     "category": "SNACKS",
     "stock": 180,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Bikaji",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Aloo_Bhujia.jpg/800px-Aloo_Bhujia.jpg",
     "brand": "Bikaji"
   },
   {
@@ -284,7 +284,7 @@
     "price": 120,
     "category": "SNACKS",
     "stock": 90,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Healthy%20Alternatives",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Bombay_mix.jpg/800px-Bombay_mix.jpg",
     "brand": "Healthy Alternatives"
   },
   {
@@ -293,7 +293,7 @@
     "price": 30,
     "category": "SNACKS",
     "stock": 140,
-    "imageUrl": "https://placehold.co/600x600/2a2a2a/ffffff.png?text=Cheetos",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Tortilla_chips.jpg/800px-Tortilla_chips.jpg",
     "brand": "Cheetos"
   }
 ]

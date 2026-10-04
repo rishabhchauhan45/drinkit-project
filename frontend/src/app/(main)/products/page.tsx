@@ -24,11 +24,10 @@ const categories = [
 ];
 
 const sortOptions = [
-  { label: 'Most Popular', value: 'popular' },
-  { label: 'Newest Arrivals', value: 'newest' },
   { label: 'Price: Low to High', value: 'price_asc' },
   { label: 'Price: High to Low', value: 'price_desc' },
-  { label: 'Biggest Discount', value: 'discount' },
+  { label: 'Name: A to Z', value: 'name_asc' },
+  { label: 'Name: Z to A', value: 'name_desc' },
 ];
 
 function ProductsContent() {
@@ -37,7 +36,7 @@ function ProductsContent() {
   
   const initialCategory = searchParams.get('category') as ProductCategory | null;
   const initialSearch = searchParams.get('search') || '';
-  const initialSort = searchParams.get('sort') || 'popular';
+  const initialSort = searchParams.get('sort') || 'price_asc';
 
   const [category, setCategory] = useState<ProductCategory | ''>(initialCategory || '');
   const [search, setSearch] = useState(initialSearch);
@@ -163,13 +162,13 @@ function ProductsContent() {
 
           {/* Product Grid */}
           {isLoading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
               {Array.from({ length: 12 }).map((_, i) => (
                 <div key={i} className="h-[380px] rounded-2xl bg-muted animate-pulse" />
               ))}
             </div>
           ) : products.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
               {products.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}
@@ -185,7 +184,7 @@ function ProductsContent() {
               </p>
               <Button 
                 className="mt-6" 
-                onClick={() => { setCategory(''); setSearch(''); setSort('popular'); }}
+                onClick={() => { setCategory(''); setSearch(''); setSort('price_asc'); }}
               >
                 Clear all filters
               </Button>

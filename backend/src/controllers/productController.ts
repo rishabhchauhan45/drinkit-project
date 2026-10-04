@@ -24,7 +24,7 @@ const productSchema = z.object({
 export const productController = {
   async getAllProducts(req: any, res: any) {
     try {
-      const { category, search, minPrice, maxPrice, brand, page = 1, limit = 10 } = req.query;
+      const { category, search, minPrice, maxPrice, brand, page = 1, limit = 10, sort } = req.query;
       const cacheKey = `products:${JSON.stringify(req.query)}`;
       let cached = null;
       try {
@@ -38,7 +38,17 @@ export const productController = {
       if (brand) filter.brand = brand;
       if (minPrice || maxPrice) { filter.price = {}; if (minPrice) filter.price.$gte = Number(minPrice); if (maxPrice) filter.price.$lte = Number(maxPrice); }
       if (search) filter.$text = { $search: search };
-      const products = await Product.find(filter).skip((Number(page) - 1) * Number(limit)).limit(Number(limit)).populate('pairings');
+      
+      let sortConfig: any = { _id: 1 };
+      if (sort === 'price_asc') sortConfig = { price: 1 };
+      else if (sort === 'price_desc') sortConfig = { price: -1 };
+      else if (sort === 'name_asc') sortConfig = { name: 1 };
+      else if (sort === 'name_desc') sortConfig = { name: -1 };
+      else if (sort === 'newest') sortConfig = { createdAt: -1 };
+      else if (sort === 'discount') sortConfig = { discount: -1 };
+      else if (sort === 'popular') sortConfig = { _id: 1 };
+      
+      const products = await Product.find(filter).sort(sortConfig).skip((Number(page) - 1) * Number(limit)).limit(Number(limit)).populate('pairings');
       try {
         await redis.set(cacheKey, JSON.stringify(products), 'EX', 300);
       } catch (redisErr) {
