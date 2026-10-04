@@ -8,19 +8,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'plus.unsplash.com',
+        hostname: 'loremflickr.com',
       },
       {
         protocol: 'https',
         hostname: 'upload.wikimedia.org',
-      },
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
       },
       {
         protocol: 'https',
