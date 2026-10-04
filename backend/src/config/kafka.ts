@@ -5,6 +5,12 @@ const kafkaBrokers = process.env.KAFKA_BROKERS ? process.env.KAFKA_BROKERS.split
 export const kafka = new Kafka({
   clientId: 'drinkit-backend',
   brokers: kafkaBrokers,
+  ssl: !!process.env.KAFKA_USERNAME,
+  sasl: process.env.KAFKA_USERNAME && process.env.KAFKA_PASSWORD ? {
+    mechanism: 'scram-sha-256',
+    username: process.env.KAFKA_USERNAME,
+    password: process.env.KAFKA_PASSWORD,
+  } : undefined,
   logLevel: logLevel.NOTHING,
   retry: {
     initialRetryTime: 300,

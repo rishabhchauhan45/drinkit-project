@@ -50,6 +50,7 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/delivery', deliveryRoutes);
 app.use('/api/coupons', couponRoutes);
+app.use('/api/track', require('./routes/trackRoutes').default);
 
 // 404 handler for unknown API routes
 app.use((req, res, next) => {
