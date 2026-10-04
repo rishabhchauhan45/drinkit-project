@@ -26,14 +26,24 @@ export const paymentController = {
         return res.status(403).json({ success: false, error: 'Unauthorized' });
       }
 
-      const amountInPaise = Math.round(order.totalAmount * 100);
+      const amountInPaise = Math.round(Number(order.totalAmount) * 100);
 
       const razorpay = getRazorpayInstance();
-      const razorpayOrder = await razorpay.orders.create({
-        amount: amountInPaise,
-        currency: 'INR',
-        receipt: order.id
-      });
+      let razorpayOrder;
+      
+      try {
+        razorpayOrder = await razorpay.orders.create({
+          amount: amountInPaise,
+          currency: 'INR',
+          receipt: order.id
+        });
+      } catch (error: any) {
+        console.error("RAZORPAY ERROR:", error);
+        return res.status(500).json({ 
+          success: false, 
+          error: error?.error?.description || error?.message || 'Razorpay order creation failed' 
+        });
+      }
 
       // Check if payment already exists
       const existingPayment = await prisma.payment.findFirst({
