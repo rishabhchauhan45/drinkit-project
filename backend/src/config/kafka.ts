@@ -1,10 +1,15 @@
-import { Kafka, Producer, Consumer } from 'kafkajs';
+import { Kafka, Producer, Consumer, logLevel } from 'kafkajs';
 
 const kafkaBrokers = process.env.KAFKA_BROKERS ? process.env.KAFKA_BROKERS.split(',') : ['localhost:9092'];
 
 export const kafka = new Kafka({
   clientId: 'drinkit-backend',
   brokers: kafkaBrokers,
+  logLevel: logLevel.NOTHING,
+  retry: {
+    initialRetryTime: 300,
+    retries: 1,
+  }
 });
 
 export const producer: Producer = kafka.producer();
