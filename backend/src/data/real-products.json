@@ -5,8 +5,11 @@
     "price": 400,
     "category": "RUM",
     "stock": 50,
-    "imageUrl": "https://loremflickr.com/600/600/rum,bottle?random=516",
-    "brand": "Old Monk"
+    "imageUrl": "https://images.unsplash.com/photo-1614316719543-98404a743b18?w=600&q=80",
+    "brand": "Old Monk",
+    "images": [
+      "https://images.unsplash.com/photo-1614316719543-98404a743b18?w=600&q=80"
+    ]
   },
   {
     "name": "Kingfisher Premium Lager",
@@ -14,8 +17,11 @@
     "price": 150,
     "category": "BEER",
     "stock": 120,
-    "imageUrl": "https://loremflickr.com/600/600/beer,glass?random=497",
-    "brand": "Kingfisher"
+    "imageUrl": "https://images.unsplash.com/photo-1600788886242-5c96aabe3757?w=600&q=80",
+    "brand": "Kingfisher",
+    "images": [
+      "https://images.unsplash.com/photo-1600788886242-5c96aabe3757?w=600&q=80"
+    ]
   },
   {
     "name": "Absolut Vodka",
@@ -23,8 +29,11 @@
     "price": 2000,
     "category": "VODKA",
     "stock": 30,
-    "imageUrl": "https://loremflickr.com/600/600/vodka,bottle?random=69",
-    "brand": "Absolut"
+    "imageUrl": "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=600&q=80",
+    "brand": "Absolut",
+    "images": [
+      "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=600&q=80"
+    ]
   },
   {
     "name": "Glenfiddich 12 Year Old",
@@ -32,8 +41,11 @@
     "price": 4500,
     "category": "WHISKEY",
     "stock": 15,
-    "imageUrl": "https://loremflickr.com/600/600/whiskey,bottle?random=703",
-    "brand": "Glenfiddich"
+    "imageUrl": "https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=600&q=80",
+    "brand": "Glenfiddich",
+    "images": [
+      "https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=600&q=80"
+    ]
   },
   {
     "name": "Bacardi Carta Blanca",
@@ -41,8 +53,11 @@
     "price": 1200,
     "category": "RUM",
     "stock": 45,
-    "imageUrl": "https://loremflickr.com/600/600/rum,bottle?random=808",
-    "brand": "Bacardi"
+    "imageUrl": "https://images.unsplash.com/photo-1614316719543-98404a743b18?w=600&q=80",
+    "brand": "Bacardi",
+    "images": [
+      "https://images.unsplash.com/photo-1614316719543-98404a743b18?w=600&q=80"
+    ]
   },
   {
     "name": "Bira 91 White Ale",
@@ -50,8 +65,11 @@
     "price": 180,
     "category": "BEER",
     "stock": 80,
-    "imageUrl": "https://loremflickr.com/600/600/beer,glass?random=9",
-    "brand": "Bira 91"
+    "imageUrl": "https://images.unsplash.com/photo-1600788886242-5c96aabe3757?w=600&q=80",
+    "brand": "Bira 91",
+    "images": [
+      "https://images.unsplash.com/photo-1600788886242-5c96aabe3757?w=600&q=80"
+    ]
   },
   {
     "name": "Magic Moments Vodka",
@@ -59,8 +77,11 @@
     "price": 850,
     "category": "VODKA",
     "stock": 60,
-    "imageUrl": "https://loremflickr.com/600/600/vodka,bottle?random=708",
-    "brand": "Radico Khaitan"
+    "imageUrl": "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=600&q=80",
+    "brand": "Radico Khaitan",
+    "images": [
+      "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=600&q=80"
+    ]
   },
   {
     "name": "Jack Daniel's Old No. 7",
@@ -68,8 +89,11 @@
     "price": 3200,
     "category": "WHISKEY",
     "stock": 25,
-    "imageUrl": "https://loremflickr.com/600/600/whiskey,bottle?random=934",
-    "brand": "Jack Daniel's"
+    "imageUrl": "https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=600&q=80",
+    "brand": "Jack Daniel's",
+    "images": [
+      "https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=600&q=80"
+    ]
   },
   {
     "name": "Sula Chenin Blanc",
@@ -77,8 +101,11 @@
     "price": 750,
     "category": "WINE",
     "stock": 40,
-    "imageUrl": "https://loremflickr.com/600/600/wine,glass?random=536",
-    "brand": "Sula Vineyards"
+    "imageUrl": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80",
+    "brand": "Sula Vineyards",
+    "images": [
+      "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80"
+    ]
   },
   {
     "name": "Smirnoff No. 21 Vodka",
@@ -86,8 +113,11 @@
     "price": 1400,
     "category": "VODKA",
     "stock": 70,
-    "imageUrl": "https://loremflickr.com/600/600/vodka,bottle?random=82",
-    "brand": "Smirnoff"
+    "imageUrl": "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=600&q=80",
+    "brand": "Smirnoff",
+    "images": [
+      "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=600&q=80"
+    ]
   },
   {
     "name": "Blenders Pride Rare Premium",
@@ -95,8 +125,11 @@
     "price": 1100,
     "category": "WHISKEY",
     "stock": 55,
-    "imageUrl": "https://loremflickr.com/600/600/whiskey,bottle?random=617",
-    "brand": "Pernod Ricard"
+    "imageUrl": "https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=600&q=80",
+    "brand": "Pernod Ricard",
+    "images": [
+      "https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=600&q=80"
+    ]
   },
   {
     "name": "Royal Challenge Premium",
@@ -104,8 +137,11 @@
     "price": 950,
     "category": "WHISKEY",
     "stock": 65,
-    "imageUrl": "https://loremflickr.com/600/600/whiskey,bottle?random=638",
-    "brand": "United Spirits"
+    "imageUrl": "https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=600&q=80",
+    "brand": "United Spirits",
+    "images": [
+      "https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=600&q=80"
+    ]
   },
   {
     "name": "Captain Morgan Original Spiced Gold",
@@ -113,8 +149,11 @@
     "price": 1300,
     "category": "RUM",
     "stock": 35,
-    "imageUrl": "https://loremflickr.com/600/600/rum,bottle?random=99",
-    "brand": "Captain Morgan"
+    "imageUrl": "https://images.unsplash.com/photo-1614316719543-98404a743b18?w=600&q=80",
+    "brand": "Captain Morgan",
+    "images": [
+      "https://images.unsplash.com/photo-1614316719543-98404a743b18?w=600&q=80"
+    ]
   },
   {
     "name": "Heineken Lager Beer",
@@ -122,8 +161,11 @@
     "price": 200,
     "category": "BEER",
     "stock": 90,
-    "imageUrl": "https://loremflickr.com/600/600/beer,glass?random=240",
-    "brand": "Heineken"
+    "imageUrl": "https://images.unsplash.com/photo-1600788886242-5c96aabe3757?w=600&q=80",
+    "brand": "Heineken",
+    "images": [
+      "https://images.unsplash.com/photo-1600788886242-5c96aabe3757?w=600&q=80"
+    ]
   },
   {
     "name": "Jacob's Creek Classic Shiraz",
@@ -131,8 +173,11 @@
     "price": 1800,
     "category": "WINE",
     "stock": 20,
-    "imageUrl": "https://loremflickr.com/600/600/wine,glass?random=881",
-    "brand": "Jacob's Creek"
+    "imageUrl": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80",
+    "brand": "Jacob's Creek",
+    "images": [
+      "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80"
+    ]
   },
   {
     "name": "Corona Extra Beer",
@@ -140,8 +185,11 @@
     "price": 250,
     "category": "BEER",
     "stock": 85,
-    "imageUrl": "https://loremflickr.com/600/600/beer,glass?random=943",
-    "brand": "Corona"
+    "imageUrl": "https://images.unsplash.com/photo-1600788886242-5c96aabe3757?w=600&q=80",
+    "brand": "Corona",
+    "images": [
+      "https://images.unsplash.com/photo-1600788886242-5c96aabe3757?w=600&q=80"
+    ]
   },
   {
     "name": "Blue Riband Premium London Dry Gin",
@@ -149,8 +197,11 @@
     "price": 600,
     "category": "GIN",
     "stock": 45,
-    "imageUrl": "https://loremflickr.com/600/600/gin,bottle?random=2",
-    "brand": "United Spirits"
+    "imageUrl": "https://images.unsplash.com/photo-1609825488888-3a766db05542?w=600&q=80",
+    "brand": "United Spirits",
+    "images": [
+      "https://images.unsplash.com/photo-1609825488888-3a766db05542?w=600&q=80"
+    ]
   },
   {
     "name": "Bombay Sapphire",
@@ -158,8 +209,11 @@
     "price": 2800,
     "category": "GIN",
     "stock": 25,
-    "imageUrl": "https://loremflickr.com/600/600/gin,bottle?random=751",
-    "brand": "Bombay Sapphire"
+    "imageUrl": "https://images.unsplash.com/photo-1609825488888-3a766db05542?w=600&q=80",
+    "brand": "Bombay Sapphire",
+    "images": [
+      "https://images.unsplash.com/photo-1609825488888-3a766db05542?w=600&q=80"
+    ]
   },
   {
     "name": "Haldiram's Aloo Bhujia",
@@ -167,8 +221,11 @@
     "price": 50,
     "category": "SNACKS",
     "stock": 200,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=555",
-    "brand": "Haldiram's"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Haldiram's",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Lay's Magic Masala Chips",
@@ -176,8 +233,11 @@
     "price": 20,
     "category": "SNACKS",
     "stock": 150,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=889",
-    "brand": "Lay's"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Lay's",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Kurkure Masala Munch",
@@ -185,8 +245,11 @@
     "price": 20,
     "category": "SNACKS",
     "stock": 300,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=809",
-    "brand": "Kurkure"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Kurkure",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Doritos Nacho Cheese",
@@ -194,8 +257,11 @@
     "price": 50,
     "category": "SNACKS",
     "stock": 100,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=477",
-    "brand": "Doritos"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Doritos",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Roasted Salted Peanuts",
@@ -203,8 +269,11 @@
     "price": 40,
     "category": "SNACKS",
     "stock": 250,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=846",
-    "brand": "Generic"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Generic",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Bingo Mad Angles",
@@ -212,8 +281,11 @@
     "price": 20,
     "category": "SNACKS",
     "stock": 120,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=262",
-    "brand": "Bingo"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Bingo",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Cornitos Jalapeno Nachos",
@@ -221,8 +293,11 @@
     "price": 90,
     "category": "SNACKS",
     "stock": 80,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=778",
-    "brand": "Cornitos"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Cornitos",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Diet Mixture",
@@ -230,8 +305,11 @@
     "price": 60,
     "category": "SNACKS",
     "stock": 100,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=321",
-    "brand": "Haldiram's"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Haldiram's",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Pringles Sour Cream & Onion",
@@ -239,8 +317,11 @@
     "price": 110,
     "category": "SNACKS",
     "stock": 60,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=714",
-    "brand": "Pringles"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Pringles",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Too Yumm! Multigrain Chips",
@@ -248,8 +329,11 @@
     "price": 40,
     "category": "SNACKS",
     "stock": 150,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=26",
-    "brand": "Too Yumm!"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Too Yumm!",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Bikanervala Moong Dal",
@@ -257,8 +341,11 @@
     "price": 50,
     "category": "SNACKS",
     "stock": 200,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=483",
-    "brand": "Bikanervala"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Bikanervala",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "ACT II Butter Popcorn",
@@ -266,8 +353,11 @@
     "price": 35,
     "category": "SNACKS",
     "stock": 300,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=503",
-    "brand": "ACT II"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "ACT II",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Bikaji Bhujia Sev",
@@ -275,8 +365,11 @@
     "price": 55,
     "category": "SNACKS",
     "stock": 180,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=717",
-    "brand": "Bikaji"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Bikaji",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Makhanas (Fox Nuts)",
@@ -284,8 +377,11 @@
     "price": 120,
     "category": "SNACKS",
     "stock": 90,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=101",
-    "brand": "Healthy Alternatives"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Healthy Alternatives",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   },
   {
     "name": "Cheetos Cheese Puffs",
@@ -293,7 +389,10 @@
     "price": 30,
     "category": "SNACKS",
     "stock": 140,
-    "imageUrl": "https://loremflickr.com/600/600/snacks,chips?random=506",
-    "brand": "Cheetos"
+    "imageUrl": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80",
+    "brand": "Cheetos",
+    "images": [
+      "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&q=80"
+    ]
   }
 ]
