@@ -1,13 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { Heart, Plus, Minus } from 'lucide-react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Rating } from '@/components/ui/rating';
 import { PriceDisplay } from '@/components/ui/price-display';
-import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import type { Product } from '@/types';
 import { useCart } from '@/hooks/useCart';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +23,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const dispatch = useDispatch();
   const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
   const isWishlisted = wishlistItems.includes(product._id);
+  const [imageError, setImageError] = useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -82,12 +83,22 @@ export function ProductCard({ product }: ProductCardProps) {
           </button>
 
           {/* Image */}
-          <ImageWithFallback
-            src={product.images?.[0] || ''}
-            alt={product.name}
-            fill
-            className="object-contain p-4 mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
-          />
+          <div className="absolute inset-0 p-4 flex items-center justify-center">
+            {!imageError ? (
+              <img
+                src={product.images?.[0] || ''}
+                alt={product.name}
+                className="w-full h-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="w-full h-full rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center shadow-inner">
+                <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-tr from-slate-400 to-slate-200 uppercase drop-shadow-sm">
+                  {product.name.charAt(0)}
+                </span>
+              </div>
+            )}
+          </div>
 
           {/* Out of Stock Overlay */}
           {isOutOfStock && (
