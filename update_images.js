@@ -47,3 +47,4 @@ const updatedData = data.map(item => ({
 
 fs.writeFileSync(dataPath, JSON.stringify(updatedData, null, 2));
 console.log('Images updated');
+;
